@@ -50,7 +50,7 @@ export default function Home() {
     <div className="min-h-screen">
       {/* ヒーローセクション */}
       <section className="relative text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/posters/water-background_hero.webp" />
+        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.png" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <p className="text-xs md:text-sm lg:text-base font-medium text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
@@ -77,7 +77,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/background_bloodline.mp4" poster="/images/posters/background_bloodline.webp" />
+            <VideoBackground src="/videos/background_bloodline.mp4" poster="/images/background/background_bloodline.png" />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/environment_news.mp4" poster="/images/posters/environment_news.webp" />
+            <VideoBackground src="/videos/environment_news.mp4" poster="/images/background/environment_news.png" />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">
@@ -138,7 +138,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/posters/water-background_content.webp" />
+            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/background/water-background_content.png" />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">

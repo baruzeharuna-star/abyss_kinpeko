@@ -10,14 +10,14 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#161c30]/95 text-white shadow-lg border-b border-[#161c30]/60">
       <nav className="container mx-auto lg:mx-0 px-4 lg:pl-4 py-2 md:py-1 max-w-4xl lg:max-w-full">
-        <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+      <div className="flex items-center justify-between h-20 md:h-216 lg:h-20">
+      <Link href="/" className="flex items-center h-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] hover:opacity-80 transition-opacity">
             <Image
               src="/images/logo/logo_side.png"
               alt="ABYSS BREED ロゴ"
               width={1536}
               height={1024}
-              className="w-auto h-10 sm:h-12 md:h-14 lg:h-16 object-contain"
+              className="w-full h-64 sm:h-64 md:h-80 lg:h-96 object-contain"
               priority
             />
           </Link>

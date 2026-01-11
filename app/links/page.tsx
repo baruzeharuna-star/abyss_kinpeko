@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import VideoBackground from "../components/VideoBackground";
+import GradientBackground from "../components/GradientBackground";
 
 interface LinkItem {
   title: string;
@@ -87,20 +87,23 @@ export default function LinksPage() {
       {/* ヒーローセクション */}
       <section
         ref={heroRef}
-        className={`relative text-white py-32 md:py-40 overflow-hidden transition-all duration-1000 ${
+        className={`relative text-gray-900 py-16 md:py-20 overflow-hidden min-h-[400px] pt-20 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/posters/water-background_hero.webp" />
+        <GradientBackground variant="hero" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <p className="text-sm md:text-base font-medium text-white/80 mb-4 tracking-wider uppercase">
-              Links
-            </p>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 text-white">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-1 w-16 bg-gradient-to-r from-accent-500 to-primary-600 rounded-full animate-gradient"></div>
+              <p className="text-sm md:text-base font-medium text-primary-600 tracking-wider uppercase">
+                Links
+              </p>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-8 text-gradient">
               リンク集
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl">
               SNSや委託販売ショップへの<br />
               リンクをまとめています
             </p>
@@ -111,72 +114,68 @@ export default function LinksPage() {
       {/* リンク一覧セクション */}
       <section
         ref={linksRef}
-        className={`bg-white py-[5px] transition-all duration-1000 ${
+        className={`bg-gray-50 py-12 md:py-16 transition-all duration-1000 ${
           isVisible.links ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="mx-[5px]">
-          <div className="relative p-[5px] rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/posters/water-background_content.webp" />
-            <div className="relative z-10 p-8 md:p-12">
-              <div className="mb-16">
-                <p className="text-sm font-medium text-white/90 mb-2 tracking-wider uppercase drop-shadow-lg">
-                  External Links
-                </p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-2xl">
-                  外部リンク
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {links.map((link, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <span className="text-3xl">{link.icon}</span>
-                        <h3 className="text-xl font-bold text-white drop-shadow-lg">
-                          {link.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <p className="text-white/90 mb-4 drop-shadow-md text-sm leading-relaxed">
-                      {link.description}
-                    </p>
-                    <div className="flex flex-col gap-4">
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-lg transition-colors text-sm"
-                      >
-                        リンクを開く →
-                      </a>
-                      <div className="flex flex-col items-center gap-2">
-                        <p className="text-xs text-white/80 drop-shadow-md">QRコード</p>
-                        <img
-                          src={generateQRCode(link.url)}
-                          alt={`${link.title}のQRコード`}
-                          className="w-32 h-32 bg-white p-2 rounded-lg"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 委託販売ショップセクション（将来追加用） */}
-              <div className="mt-12 pt-8 border-t border-white/20">
-                <h3 className="text-2xl font-bold text-white mb-4 drop-shadow-lg">
-                  委託販売ショップ
-                </h3>
-                <p className="text-white/90 drop-shadow-md">
-                  委託販売ショップの情報は準備中です
-                </p>
-              </div>
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="mb-10">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="h-1.5 w-16 bg-gradient-to-r from-accent-500 via-accent-400 to-primary-600 rounded-full transition-all duration-500"></div>
+              <p className="text-sm font-bold text-primary-700 tracking-wider uppercase">
+                External Links
+              </p>
             </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">
+              外部リンク
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {links.map((link, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 hover:shadow-md hover:scale-[1.01] transition-all duration-300 border border-gray-200 group"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-3xl">{link.icon}</span>
+                  <h3 className="text-xl md:text-2xl font-bold text-primary-900 group-hover:text-primary-600 transition-colors">
+                    {link.title}
+                  </h3>
+                </div>
+                <p className="text-gray-700 mb-4 leading-relaxed text-sm">
+                  {link.description}
+                </p>
+                <div className="flex flex-col gap-4">
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-lg transition-colors text-sm"
+                  >
+                    リンクを開く →
+                  </a>
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-xs text-gray-600">QRコード</p>
+                    <img
+                      src={generateQRCode(link.url)}
+                      alt={`${link.title}のQRコード`}
+                      className="w-32 h-32 bg-white p-2 rounded-lg border border-gray-200"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 委託販売ショップセクション（将来追加用） */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <h3 className="text-2xl font-bold text-primary-900 mb-4">
+              委託販売ショップ
+            </h3>
+            <p className="text-gray-700">
+              委託販売ショップの情報は準備中です
+            </p>
           </div>
         </div>
       </section>
