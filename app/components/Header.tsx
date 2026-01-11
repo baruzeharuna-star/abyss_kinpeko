@@ -11,7 +11,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#161c30]/95 text-white shadow-lg border-b border-[#161c30]/60">
       <nav className="container mx-auto lg:mx-0 px-4 lg:pl-4 py-2 md:py-1 max-w-4xl lg:max-w-full">
         <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
-          <Link href="/" className="flex items-center h-14 md:h-20 lg:h-24 hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center h-20 md:h-20 lg:h-24 hover:opacity-80 transition-opacity">
             <Image
               src="/images/logo/logo_side.png"
               alt="ABYSS BREED ロゴ"
