@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#161c30]/95 text-white shadow-lg border-b border-[#161c30]/60">
       <nav className="container mx-auto lg:mx-0 px-4 lg:pl-4 py-2 md:py-1 max-w-4xl lg:max-w-full">
-      <div className="flex items-center justify-between h-18 md:h-216 lg:h-20">
+      <div className="flex items-center justify-between h-20 md:h-216 lg:h-20">
       <Link href="/" className="flex items-center h-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] hover:opacity-80 transition-opacity">
             <Image
               src="/images/logo/logo_side.png"
