@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import GradientBackground from "../components/GradientBackground";
 
 interface BloodlinePost {
   slug: string;
@@ -11,6 +10,31 @@ interface BloodlinePost {
   excerpt: string;
   tags?: string[];
 }
+
+// 重要ワード（L333, F世代, 系統名など）を検出して強調する関数
+const highlightKeywords = (text: string) => {
+  // L333, L-number系のパターン
+  const lNumberPattern = /(L\d{3})/gi;
+  // F世代（F1, F2, F3など）
+  const fGenPattern = /(F\d+)/gi;
+  // 系統名（末尾に「系統」がつく）
+  const lineagePattern = /([^\s]+系統)/g;
+  
+  let highlighted = text;
+  
+  // 各パターンをマッチさせて置換
+  highlighted = highlighted.replace(lNumberPattern, (match) => 
+    `<span class="text-accent-600 font-semibold">${match}</span>`
+  );
+  highlighted = highlighted.replace(fGenPattern, (match) => 
+    `<span class="text-accent-600 font-semibold">${match}</span>`
+  );
+  highlighted = highlighted.replace(lineagePattern, (match) => 
+    `<span class="text-accent-600 font-semibold">${match}</span>`
+  );
+  
+  return highlighted;
+};
 
 export default function BloodlinePage() {
   const heroRef = useRef<HTMLElement>(null);
@@ -77,29 +101,42 @@ export default function BloodlinePage() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* ヒーローセクション */}
+    <div className="min-h-screen bg-white">
+      {/* Hero Section - Aboutと統一 */}
       <section
         ref={heroRef}
-        className={`relative text-gray-900 py-16 md:py-20 overflow-hidden min-h-[400px] pt-20 md:pt-24 transition-all duration-1000 ${
+        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-20 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <GradientBackground variant="hero" />
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-1 w-16 bg-gradient-to-r from-accent-500 to-primary-600 rounded-full animate-gradient"></div>
-              <p className="text-sm md:text-base font-medium text-primary-600 tracking-wider uppercase">
-                Bloodline
-              </p>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-8 text-gradient">
-              血統紹介
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl">
-              ブリードした個体の血統情報と<br />
-              特徴を詳しくご紹介します
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          {/* 英字ラベル */}
+          <div className="mb-6">
+            <p className="text-xs md:text-sm font-medium text-accent-300 tracking-wider uppercase mb-2">
+              BLOODLINE
+            </p>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+            <span className="text-accent-400">血統</span>紹介
+          </h1>
+          <p className="text-lg md:text-xl text-white/90">
+            ブリードした個体の血統情報と特徴を詳しくご紹介します
+          </p>
+        </div>
+      </section>
+
+      {/* セクション区切り：余白とラベルで区切る */}
+      <section className="py-12 md:py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-8">
+            <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-4">
+              RECORD
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+              <span className="text-accent-600">血</span>統一覧
+            </h2>
+            <p className="text-sm text-gray-500">
+              各血統の詳細情報を記録しています
             </p>
           </div>
         </div>
@@ -112,19 +149,7 @@ export default function BloodlinePage() {
           isVisible.posts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="mb-10">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="h-1.5 w-16 bg-gradient-to-r from-accent-500 via-accent-400 to-primary-600 rounded-full transition-all duration-500"></div>
-              <p className="text-sm font-bold text-primary-700 tracking-wider uppercase">
-                Bloodlines
-              </p>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">
-              血統一覧
-            </h2>
-          </div>
-
+        <div className="max-w-5xl mx-auto px-4">
           {isLoading ? (
             <div className="text-center py-12">
               <p className="text-gray-600">読み込み中...</p>
@@ -136,35 +161,48 @@ export default function BloodlinePage() {
                   <Link
                     key={post.slug}
                     href={`/bloodline/${post.slug}`}
-                    className="block bg-white rounded-xl p-6 md:p-8 hover:shadow-md hover:scale-[1.01] transition-all duration-300 border border-gray-200 group"
+                    className="block bg-white rounded-lg p-6 md:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 group"
                   >
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                      <h3 className="text-2xl md:text-3xl font-bold text-primary-900 group-hover:text-primary-600 transition-colors">
-                        {post.title}
-                      </h3>
-                      <time className="text-gray-600 text-sm whitespace-nowrap">
-                        {formatDate(post.date)}
-                      </time>
+                    {/* カードヘッダー：情報構造を明確化 */}
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 pb-4 border-b border-gray-100">
+                      <div className="flex-1">
+                        <h3 
+                          className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors mb-2"
+                          dangerouslySetInnerHTML={{ __html: highlightKeywords(post.title) }}
+                        />
+                        <time className="text-sm text-gray-500">
+                          {formatDate(post.date)}
+                        </time>
+                      </div>
                     </div>
-                    <p className="text-gray-700 mb-4 leading-relaxed">
-                      {post.excerpt}
-                    </p>
+                    
+                    {/* カード本文：テキスト情報を主役に */}
+                    <div className="mb-4">
+                      <p 
+                        className="text-gray-700 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: highlightKeywords(post.excerpt) }}
+                      />
+                    </div>
+                    
+                    {/* タグ：重要ワードを強調 */}
                     {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1 bg-accent-500/20 text-accent-700 text-sm rounded-full border border-accent-500/30"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
+                        {post.tags.map((tag, index) => {
+                          const highlightedTag = highlightKeywords(tag);
+                          return (
+                            <span
+                              key={index}
+                              className="px-3 py-1 bg-gray-50 text-gray-700 text-sm rounded border border-gray-200"
+                              dangerouslySetInnerHTML={{ __html: highlightedTag }}
+                            />
+                          );
+                        })}
                       </div>
                     )}
                   </Link>
                 ))
               ) : (
-                <div className="bg-white rounded-xl p-8 text-center border border-gray-200">
+                <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
                   <p className="text-gray-600">
                     まだ血統紹介がありません
                   </p>
