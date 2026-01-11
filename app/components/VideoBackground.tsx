@@ -8,66 +8,78 @@ interface VideoBackgroundProps {
   className?: string;
 }
 
+// 動画ファイル名から背景画像のパスを自動生成
+function getBackgroundImagePath(videoSrc: string): string {
+  // 動画ファイル名を取得（例: /videos/water-background_hero.mp4 → water-background_hero）
+  const videoFileName = videoSrc.split("/").pop()?.replace(/\.(mp4|webm|ogg)$/i, "") || "";
+  // 背景画像のパスを生成（例: /images/background/water-background_hero.png）
+  return `/images/background/${videoFileName}.png`;
+}
+
 export default function VideoBackground({ src, poster, className = "" }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [posterImage, setPosterImage] = useState<string | null>(poster || null);
+  // posterが指定されていない場合、動画ファイル名から自動推測
+  const defaultPoster = poster || getBackgroundImagePath(src);
+  const [posterImage, setPosterImage] = useState<string | null>(defaultPoster);
 
   useEffect(() => {
-    // posterが指定されている場合はそれを使用
-    if (poster) {
-      setPosterImage(poster);
-      return;
-    }
+    // 画像が存在するか確認
+    const img = new Image();
+    
+    img.onload = () => {
+      // 画像が存在する場合、それを使用
+      setPosterImage(defaultPoster);
+    };
+    
+    img.onerror = () => {
+      // 画像が存在しない場合、動画フレームを抽出
+      const video = videoRef.current;
+      if (!video) return;
 
-    // posterが指定されていない場合、動画の最初のフレームを抽出
-    const video = videoRef.current;
-    if (!video) return;
-
-    const captureFrame = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth || 1920;
-        canvas.height = video.videoHeight || 1080;
-        const ctx = canvas.getContext("2d");
-        
-        if (ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          const dataURL = canvas.toDataURL("image/webp", 0.8);
-          setPosterImage(dataURL);
+      const captureFrame = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth || 1920;
+          canvas.height = video.videoHeight || 1080;
+          const ctx = canvas.getContext("2d");
+          
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL("image/webp", 0.8);
+            setPosterImage(dataURL);
+          }
+        } catch (error) {
+          console.warn("Failed to capture video frame:", error);
         }
-      } catch (error) {
-        console.warn("Failed to capture video frame:", error);
-      }
-    };
+      };
 
-    // 動画のメタデータが読み込まれたら最初のフレームをキャプチャ
-    const handleLoadedData = () => {
-      if (video.readyState >= 2) {
-        // 動画を一時的に再生位置を0に設定
-        video.currentTime = 0;
-      }
-    };
+      const handleLoadedData = () => {
+        if (video.readyState >= 2) {
+          video.currentTime = 0;
+        }
+      };
 
-    const handleSeeked = () => {
-      captureFrame();
-      // キャプチャ後はイベントリスナーを削除
-      video.removeEventListener("seeked", handleSeeked);
-    };
+      const handleSeeked = () => {
+        captureFrame();
+        video.removeEventListener("seeked", handleSeeked);
+      };
 
-    video.addEventListener("loadeddata", handleLoadedData);
-    video.addEventListener("seeked", handleSeeked);
-
-    // 既に読み込まれている場合
-    if (video.readyState >= 2) {
-      video.currentTime = 0;
+      video.addEventListener("loadeddata", handleLoadedData);
       video.addEventListener("seeked", handleSeeked);
-    }
 
-    return () => {
-      video.removeEventListener("loadeddata", handleLoadedData);
-      video.removeEventListener("seeked", handleSeeked);
+      if (video.readyState >= 2) {
+        video.currentTime = 0;
+        video.addEventListener("seeked", handleSeeked);
+      }
+
+      return () => {
+        video.removeEventListener("loadeddata", handleLoadedData);
+        video.removeEventListener("seeked", handleSeeked);
+      };
     };
-  }, [src, poster]);
+    
+    img.src = defaultPoster;
+  }, [src, defaultPoster]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
@@ -82,20 +94,17 @@ export default function VideoBackground({ src, poster, className = "" }: VideoBa
         />
       )}
       
-      {/* 動画（768px以上で表示、prefers-reduced-motionでは非表示） */}
-      {/* フレーム抽出用の非表示動画（モバイルのみ） */}
-      {!poster && (
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute opacity-0 pointer-events-none md:hidden"
-          style={{ width: "1px", height: "1px" }}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
-      )}
+      {/* フレーム抽出用の非表示動画（画像が存在しない場合のフォールバック用） */}
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        preload="metadata"
+        className="absolute opacity-0 pointer-events-none"
+        style={{ width: "1px", height: "1px" }}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
       
       {/* 表示用動画（768px以上で表示、prefers-reduced-motionでは非表示） */}
       <video
