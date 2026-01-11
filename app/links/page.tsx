@@ -91,7 +91,7 @@ export default function LinksPage() {
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <VideoBackground src="/videos/water-background_hero.mp4" />
+        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/posters/water-background_hero.webp" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <p className="text-sm md:text-base font-medium text-white/80 mb-4 tracking-wider uppercase">
@@ -117,7 +117,7 @@ export default function LinksPage() {
       >
         <div className="mx-[5px]">
           <div className="relative p-[5px] rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/water-background_content.mp4" />
+            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/posters/water-background_content.webp" />
             <div className="relative z-10 p-8 md:p-12">
               <div className="mb-16">
                 <p className="text-sm font-medium text-white/90 mb-2 tracking-wider uppercase drop-shadow-lg">

@@ -216,3 +216,10 @@
     transform: scale(1.1);
   }
 }
+
+/* prefers-reduced-motion対応：動画を非表示 */
+@media (prefers-reduced-motion: reduce) {
+  .video-background {
+    display: none !important;
+  }
+}
