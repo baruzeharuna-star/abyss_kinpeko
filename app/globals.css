@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+  }
+  
+  .gradient-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-pattern-dots {
+    background-color: rgb(249, 250, 251);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+  }
+  
+  .bg-pattern-grid {
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  .bg-pattern-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+  
+  .bg-texture {
+    background-color: rgb(255, 255, 255);
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.06) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, #fafbfc 0%, #e8eaed 30%, #f5f7fa 60%, #fafbfc 100%);
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  
+  .bg-hero-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26, 35, 126, 0.03) 0%, transparent 50%, rgba(212, 175, 55, 0.02) 100%);
+    pointer-events: none;
+  }
+  
+  .bg-hero-gradient::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(26, 35, 126, 0.06) 1px, transparent 0),
+      radial-gradient(circle at 8px 8px, rgba(212, 175, 55, 0.04) 1px, transparent 0);
+    background-size: 40px 40px, 80px 80px;
+    background-position: 0 0, 20px 20px;
+    pointer-events: none;
+  }
+  
+  .bg-card-gradient {
+    background: linear-gradient(135deg, 
+      rgba(26, 35, 126, 0.15) 0%, 
+      rgba(255, 255, 255, 0.95) 20%,
+      rgba(248, 249, 252, 0.9) 50%,
+      rgba(232, 234, 246, 0.85) 80%,
+      rgba(26, 35, 126, 0.12) 100%);
+    box-shadow: 
+      0 20px 60px rgba(26, 35, 126, 0.2),
+      0 8px 24px rgba(212, 175, 55, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1),
+      inset 0 2px 4px rgba(255, 255, 255, 0.9),
+      inset 0 -2px 4px rgba(26, 35, 126, 0.1);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, 
+      rgba(212, 175, 55, 0.6) 0%, 
+      rgba(26, 35, 126, 0.4) 50%, 
+      rgba(212, 175, 55, 0.6) 100%) 1;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  
+  .card-hover:hover .bg-card-gradient {
+    box-shadow: 
+      0 30px 80px rgba(26, 35, 126, 0.3),
+      0 12px 32px rgba(212, 175, 55, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 2px 4px rgba(255, 255, 255, 0.95),
+      inset 0 -2px 4px rgba(26, 35, 126, 0.15);
+    transform: scale(1.01);
+  }
+  
+  .bg-card-gradient::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(26, 35, 126, 0.08) 1.5px, transparent 0),
+      radial-gradient(circle at 8px 8px, rgba(212, 175, 55, 0.06) 1px, transparent 0),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, transparent 30%, rgba(26, 35, 126, 0.1) 70%, transparent 100%);
+    background-size: 40px 40px, 80px 80px, 100% 100%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: shimmer 10s ease-in-out infinite;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 30%, #d4af37 50%, #3949ab 70%, #283593 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 300% 300%;
+    animation: gradient 6s ease infinite;
+    filter: drop-shadow(0 2px 4px rgba(26, 35, 126, 0.3));
+  }
+  
+  .card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    opacity: 0.8;
+    transform: translateX(10px) translateY(-5px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(-5px) translateY(10px);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translateX(-10px) translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
