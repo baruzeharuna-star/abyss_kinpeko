@@ -64,6 +64,11 @@ export default function Header() {
               </Link>
             </li>
             <li>
+              <Link href="/environment" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
+                飼育環境
+              </Link>
+            </li>
+            <li>
               <Link href="/blog" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
                 ブログ
               </Link>
@@ -105,6 +110,15 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   血統紹介
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/environment"
+                  className="block px-4 py-3 hover:bg-white/10 transition-colors text-base"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  飼育環境
                 </Link>
               </li>
               <li>

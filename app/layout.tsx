@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     template: "%s | キンペコ - 熱帯魚ブリーダー",
   },
   description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+  icons: {
+    icon: "/images/logo/favicon.ico",
+    apple: "/images/logo/favicon.ico",
+  },
   openGraph: {
     type: "website",
     locale: "ja_JP",

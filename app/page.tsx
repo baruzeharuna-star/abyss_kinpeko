@@ -120,7 +120,8 @@ export default function Home() {
               </div>
               <div className="max-w-3xl">
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
-                  約2畳の水槽専用部屋で飼育を行なっています。水温は約30度を維持、毎日の換水により水質を管理しています
+                  約2畳の水槽専用部屋で飼育を行なっています<br />
+                  水温は約30度を維持、毎日の換水により水質を管理しています
                 </p>
               </div>
             </div>
