@@ -80,7 +80,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/background/water-background_content.png" />
+            <VideoBackground src="/videos/background_bloodline.mp4" poster="/images/background/background_bloodline.png" />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">
