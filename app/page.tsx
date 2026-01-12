@@ -110,30 +110,54 @@ export default function Home() {
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">
-                <p className="text-xs md:text-sm font-medium text-white/90 mb-2 md:mb-3 tracking-wider uppercase drop-shadow-lg">Content</p>
+                <p className="text-xs md:text-sm font-medium text-white/90 mb-2 md:mb-3 tracking-wider uppercase drop-shadow-lg">For First-Time Visitors</p>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8 drop-shadow-2xl leading-tight">
-                  コンテンツ
+                  はじめて見ていただいた方へ
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
-                <div className="group">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 drop-shadow-lg">自己紹介</h3>
-                  <p className="text-sm md:text-base text-white leading-relaxed drop-shadow-md">
+                <Link 
+                  href="/about" 
+                  className="group block bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3 md:mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">自己紹介</h3>
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white/60 group-hover:text-accent-300 transition-colors flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
                     ブリーダーとしての想いとこだわりをご紹介します
                   </p>
-                </div>
-                <div className="group">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 drop-shadow-lg">ブログ</h3>
-                  <p className="text-sm md:text-base text-white leading-relaxed drop-shadow-md">
+                </Link>
+                <Link 
+                  href="/blog" 
+                  className="group block bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3 md:mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">ブログ</h3>
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white/60 group-hover:text-accent-300 transition-colors flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
                     日々の育成状況、成長状況の記録を更新しています
                   </p>
-                </div>
-                <div className="group">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 drop-shadow-lg">購入方法</h3>
-                  <p className="text-sm md:text-base text-white leading-relaxed drop-shadow-md">
+                </Link>
+                <Link 
+                  href="/purchase" 
+                  className="group block bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3 md:mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">購入方法</h3>
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white/60 group-hover:text-accent-300 transition-colors flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
                     私のブリードしたキンペコの購入方法をご案内いたします
                   </p>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -159,15 +183,15 @@ export default function Home() {
                   飼育環境
                 </h2>
               </div>
-              <div className="max-w-3xl">
+              <div className="max-w-3xl bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
                   約2畳の水槽専用部屋でブリードをしています<br />
                   水温は30度を維持し、毎日の換水で水質を管理しています
                 </p>
               </div>
             </div>
-            {/* ボタン：背景動画の右下に配置 */}
-            <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-10">
+            {/* ボタン：スマホは右上、デスクトップは右下に配置 */}
+            <div className="absolute top-4 right-4 md:top-auto md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-10">
               <EnvironmentLinkButton>飼育環境を見る</EnvironmentLinkButton>
             </div>
           </div>
@@ -193,7 +217,7 @@ export default function Home() {
                   血統
                 </h2>
               </div>
-              <div className="max-w-3xl">
+              <div className="max-w-3xl bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed mb-4 md:mb-6 drop-shadow-lg">
                  キンペコ（L333）の血統情報は分かりづらく<br />
                  特に初心者にとっては大きな壁になることがあります
@@ -203,8 +227,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            {/* ボタン：背景動画の右下に配置 */}
-            <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-10">
+            {/* ボタン：スマホは右上、デスクトップは右下に配置 */}
+            <div className="absolute top-4 right-4 md:top-auto md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-10">
               <BloodlineLinkButton>血統紹介を見る</BloodlineLinkButton>
             </div>
           </div>
