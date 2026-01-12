@@ -174,11 +174,11 @@ export default function BloodlinePostPage() {
       {/* Hero Section - Aboutと統一 */}
       <section
         ref={heroRef}
-        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-24 md:pt-24 transition-all duration-1000 ${
+        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-20 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-4 md:pt-0">
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <Link
             href="/bloodline"
             className="inline-block text-white/80 hover:text-white mb-6 transition-colors font-medium text-sm"
@@ -229,19 +229,19 @@ export default function BloodlinePostPage() {
           <div className="relative p-2 md:p-3 rounded-2xl shadow-2xl overflow-hidden card-hover group">
             <GradientBackground variant="card" />
             <div className="relative z-10 p-10 md:p-16 lg:p-20">
-              <article className="prose prose-lg max-w-none">
+              <div className="text-gray-700 leading-relaxed">
                 {post.htmlContent ? (
                   <div
-                    className="text-gray-700 leading-relaxed prose-headings:text-primary-900 prose-headings:font-bold prose-headings:mt-8 prose-headings:mb-4 prose-headings:text-2xl md:prose-headings:text-3xl prose-p:text-gray-700 prose-p:mb-6 prose-p:leading-relaxed prose-p:text-base md:prose-p:text-lg prose-ul:text-gray-700 prose-ul:mb-6 prose-li:text-gray-700 prose-li:mb-2 prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-hr:border-gray-300 prose-hr:my-8"
+                    className="prose-content"
                     dangerouslySetInnerHTML={{ __html: highlightKeywords(post.htmlContent) }}
                   />
                 ) : (
                   <div 
-                    className="text-gray-700 leading-relaxed whitespace-pre-line prose-p:text-base md:prose-p:text-lg prose-p:mb-6"
+                    className="whitespace-pre-line"
                     dangerouslySetInnerHTML={{ __html: highlightKeywords(post.content.replace(/\n/g, "<br />")) }}
                   />
                 )}
-              </article>
+              </div>
             </div>
           </div>
         </div>
