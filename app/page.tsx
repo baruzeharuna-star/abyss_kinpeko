@@ -1,19 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import VideoBackground from "./components/VideoBackground";
 import BloodlineLinkButton from "./components/BloodlineLinkButton";
 import EnvironmentLinkButton from "./components/EnvironmentLinkButton";
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  category?: string;
+  tags?: string[];
+}
 
 export default function Home() {
   const aboutRef = useRef<HTMLElement>(null);
   const environmentRef = useRef<HTMLElement>(null);
   const serviceRef = useRef<HTMLElement>(null);
+  const newsRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState({
     about: false,
     environment: false,
     service: false,
+    news: false,
   });
+  const [newsPosts, setNewsPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -42,10 +55,23 @@ export default function Home() {
     createObserver(aboutRef, "about");
     createObserver(environmentRef, "environment");
     createObserver(serviceRef, "service");
+    createObserver(newsRef, "news");
 
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
+  }, []);
+
+  useEffect(() => {
+    // お知らせカテゴリのブログ記事を取得（最新3件）
+    fetch("/api/blog?category=お知らせ")
+      .then((res) => res.json())
+      .then((data) => {
+        setNewsPosts(data.slice(0, 3)); // 最新3件のみ
+      })
+      .catch(() => {
+        setNewsPosts([]);
+      });
   }, []);
 
   return (
@@ -173,7 +199,6 @@ export default function Home() {
                  特に初心者にとっては大きな壁になることがあります
                 </p>
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
-                 親魚の系統や掛け合わせやブリードの経緯など<br />
                  私が実際に育てた個体について分かる限りの情報を整理して発信しています
                 </p>
               </div>
@@ -181,6 +206,71 @@ export default function Home() {
             {/* ボタン：背景動画の右下に配置 */}
             <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-10">
               <BloodlineLinkButton>血統紹介を見る</BloodlineLinkButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* News セクション */}
+      <section
+        ref={newsRef}
+        className={`bg-white py-8 md:py-12 lg:py-16 transition-all duration-1000 ${
+          isVisible.news ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          {/* 動画背景カード */}
+          <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
+            <VideoBackground src="/videos/background_info.mp4" poster="/images/background/background_info.png" />
+            {/* テキストカード */}
+            <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
+              <div className="mb-8 md:mb-12 lg:mb-16">
+                <p className="text-xs md:text-sm font-medium text-white/90 mb-2 md:mb-3 tracking-wider uppercase drop-shadow-lg">News</p>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl leading-tight">
+                  最新情報
+                </h2>
+              </div>
+              <div className="max-w-3xl space-y-4 md:space-y-6">
+                {newsPosts.length > 0 ? (
+                  newsPosts.map((post) => {
+                    const formatDate = (dateString: string) => {
+                      const date = new Date(dateString);
+                      return date.toLocaleDateString("ja-JP", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      });
+                    };
+                    return (
+                      <Link
+                        key={post.slug}
+                        href={`/blog/${post.slug}`}
+                        className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-4">
+                          <div className="flex-1">
+                            <h3 className="text-base md:text-lg lg:text-xl font-bold text-white mb-2 drop-shadow-lg">
+                              {post.title}
+                            </h3>
+                            {post.excerpt && (
+                              <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md line-clamp-2">
+                                {post.excerpt}
+                              </p>
+                            )}
+                          </div>
+                          <time className="text-xs md:text-sm text-white/80 whitespace-nowrap drop-shadow-md">
+                            {formatDate(post.date)}
+                          </time>
+                        </div>
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <p className="text-base md:text-lg text-white/90 drop-shadow-lg">
+                    お知らせはありません
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
