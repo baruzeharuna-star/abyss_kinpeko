@@ -150,7 +150,8 @@ export default function BlogPostPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 text-gradient">
               {post.title}
             </h1>
-            {post.tags && post.tags.length > 0 && (
+            {/* タグ表示を一旦非表示 */}
+            {/* {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag, index) => (
                   <span
@@ -161,7 +162,7 @@ export default function BlogPostPage() {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </section>

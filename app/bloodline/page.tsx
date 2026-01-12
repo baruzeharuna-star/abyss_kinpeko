@@ -11,31 +11,6 @@ interface BloodlinePost {
   tags?: string[];
 }
 
-// 重要ワード（L333, F世代, 系統名など）を検出して強調する関数
-const highlightKeywords = (text: string) => {
-  // L333, L-number系のパターン
-  const lNumberPattern = /(L\d{3})/gi;
-  // F世代（F1, F2, F3など）
-  const fGenPattern = /(F\d+)/gi;
-  // 系統名（末尾に「系統」がつく）
-  const lineagePattern = /([^\s]+系統)/g;
-  
-  let highlighted = text;
-  
-  // 各パターンをマッチさせて置換
-  highlighted = highlighted.replace(lNumberPattern, (match) => 
-    `<span class="text-accent-600 font-semibold">${match}</span>`
-  );
-  highlighted = highlighted.replace(fGenPattern, (match) => 
-    `<span class="text-accent-600 font-semibold">${match}</span>`
-  );
-  highlighted = highlighted.replace(lineagePattern, (match) => 
-    `<span class="text-accent-600 font-semibold">${match}</span>`
-  );
-  
-  return highlighted;
-};
-
 export default function BloodlinePage() {
   const heroRef = useRef<HTMLElement>(null);
   const postsRef = useRef<HTMLElement>(null);
@@ -166,10 +141,9 @@ export default function BloodlinePage() {
                     {/* カードヘッダー：情報構造を明確化 */}
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 pb-4 border-b border-gray-100">
                       <div className="flex-1">
-                        <h3 
-                          className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors mb-2"
-                          dangerouslySetInnerHTML={{ __html: highlightKeywords(post.title) }}
-                        />
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors mb-2">
+                          {post.title}
+                        </h3>
                         <time className="text-sm text-gray-500">
                           {formatDate(post.date)}
                         </time>
@@ -178,25 +152,22 @@ export default function BloodlinePage() {
                     
                     {/* カード本文：テキスト情報を主役に */}
                     <div className="mb-4">
-                      <p 
-                        className="text-gray-700 leading-relaxed"
-                        dangerouslySetInnerHTML={{ __html: highlightKeywords(post.excerpt) }}
-                      />
+                      <p className="text-gray-700 leading-relaxed">
+                        {post.excerpt}
+                      </p>
                     </div>
                     
-                    {/* タグ：重要ワードを強調 */}
+                    {/* タグ */}
                     {post.tags && post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
-                        {post.tags.map((tag, index) => {
-                          const highlightedTag = highlightKeywords(tag);
-                          return (
-                            <span
-                              key={index}
-                              className="px-3 py-1 bg-gray-50 text-gray-700 text-sm rounded border border-gray-200"
-                              dangerouslySetInnerHTML={{ __html: highlightedTag }}
-                            />
-                          );
-                        })}
+                        {post.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gray-50 text-gray-700 text-sm rounded border border-gray-200"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     )}
                   </Link>

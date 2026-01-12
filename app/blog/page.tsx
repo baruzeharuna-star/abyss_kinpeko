@@ -173,8 +173,8 @@ export default function BlogPage() {
                         </p>
                       </div>
                       
-                      {/* タグ */}
-                      {post.tags && post.tags.length > 0 && (
+                      {/* タグ表示を一旦非表示 */}
+                      {/* {post.tags && post.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
                           {post.tags.map((tag, index) => (
                             <span
@@ -185,7 +185,7 @@ export default function BlogPage() {
                             </span>
                           ))}
                         </div>
-                      )}
+                      )} */}
                     </Link>
                   ))
                 ) : (
