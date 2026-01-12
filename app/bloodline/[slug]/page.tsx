@@ -174,11 +174,11 @@ export default function BloodlinePostPage() {
       {/* Hero Section - Aboutと統一 */}
       <section
         ref={heroRef}
-        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-20 md:pt-24 transition-all duration-1000 ${
+        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-24 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-4 md:pt-0">
           <Link
             href="/bloodline"
             className="inline-block text-white/80 hover:text-white mb-6 transition-colors font-medium text-sm"
