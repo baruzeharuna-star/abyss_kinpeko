@@ -287,8 +287,8 @@
 .prose-content ol ol,
 .prose-content ul ol,
 .prose-content ol ul {
-  padding-left: 0.75rem;
-  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 @media (min-width: 768px) {
