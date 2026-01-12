@@ -69,6 +69,11 @@ export default function Header() {
               </Link>
             </li>
             <li>
+              <Link href="/purchase" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
+                購入方法
+              </Link>
+            </li>
+            <li>
               <Link href="/blog" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
                 ブログ
               </Link>
@@ -119,6 +124,15 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   飼育環境
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/purchase"
+                  className="block px-4 py-3 hover:bg-white/10 transition-colors text-base"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  購入方法
                 </Link>
               </li>
               <li>
