@@ -1,4 +1,4 @@
-import Link from "next/link";
+import BloodlineLinkButton from "../components/BloodlineLinkButton";
 
 export default function AboutPage() {
   return (
@@ -179,12 +179,7 @@ export default function AboutPage() {
       {/* Link Section */}
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <Link
-            href="/bloodline"
-            className="inline-block px-8 py-4 bg-[#161c30] text-white text-lg font-semibold rounded-lg hover:bg-[#1a2338] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-accent-500/20"
-          >
-            ブリードしている血統を見る
-          </Link>
+          <BloodlineLinkButton>ブリードしている血統を見る</BloodlineLinkButton>
         </div>
       </section>
     </div>

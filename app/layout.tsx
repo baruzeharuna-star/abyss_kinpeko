@@ -22,10 +22,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kinpeko.example.com
 
 export const metadata: Metadata = {
   title: {
-    default: "キンペコ - 熱帯魚ブリーダー",
-    template: "%s | キンペコ - 熱帯魚ブリーダー",
+    default: "キンペコ（L333）ブリード・血統・飼育記録｜個人熱帯魚ブリーダー",
+    template: "%s｜キンペコ（L333）ブリード記録",
   },
-  description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+  description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
   icons: {
     icon: "/images/logo/favicon.ico",
     apple: "/images/logo/favicon.ico",
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ja_JP",
     url: siteUrl,
-    siteName: "キンペコ - 熱帯魚ブリーダー",
-    title: "キンペコ - 熱帯魚ブリーダー",
-    description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+    siteName: "キンペコ（L333）ブリード記録",
+    title: "キンペコ（L333）ブリード・血統・飼育記録｜個人熱帯魚ブリーダー",
+    description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
   },
   twitter: {
     card: "summary_large_image",
-    title: "キンペコ - 熱帯魚ブリーダー",
-    description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+    title: "キンペコ（L333）ブリード・血統・飼育記録｜個人熱帯魚ブリーダー",
+    description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
   },
 };
 
@@ -55,8 +55,8 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "キンペコ - 熱帯魚ブリーダー",
-    description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+    name: "Abyss（キンペコL333ブリーダー）",
+    description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
     url: siteUrl,
     sameAs: [
       "https://x.com/aquarium621",
@@ -68,9 +68,9 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "キンペコ - 熱帯魚ブリーダー",
+    name: "Abyss（キンペコL333ブリーダー）",
     url: siteUrl,
-    description: "個人でブリードしているキンペコ（熱帯魚）の販売促進サイト",
+    description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
   };
 
   return (
