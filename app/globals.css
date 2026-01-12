@@ -282,9 +282,34 @@
   padding-left: 1.5rem;
 }
 
+/* スマホ時のネストされたリストのインデントを減らす */
+.prose-content ul ul,
+.prose-content ol ol,
+.prose-content ul ol,
+.prose-content ol ul {
+  padding-left: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .prose-content ul ul,
+  .prose-content ol ol,
+  .prose-content ul ol,
+  .prose-content ol ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
 .prose-content li {
   margin-bottom: 0.5rem;
   line-height: 1.75;
+}
+
+/* ネストされたリストアイテムのマージンも調整 */
+.prose-content ul ul li,
+.prose-content ol ol li {
+  margin-bottom: 0.25rem;
 }
 
 .prose-content strong {
