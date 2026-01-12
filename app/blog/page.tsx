@@ -8,6 +8,7 @@ interface BlogPost {
   title: string;
   date: string;
   excerpt: string;
+  category?: string;
   tags?: string[];
 }
 
@@ -150,9 +151,16 @@ export default function BlogPage() {
                     >
                       {/* カードヘッダー：情報構造を明確化 */}
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 pb-4 border-b border-gray-100">
-                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors">
-                          {post.title}
-                        </h3>
+                        <div className="flex-1">
+                          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors mb-2">
+                            {post.title}
+                          </h3>
+                          {post.category && (
+                            <span className="inline-block px-3 py-1 bg-accent-500/20 text-accent-700 text-xs md:text-sm font-semibold rounded border border-accent-500/30">
+                              {post.category}
+                            </span>
+                          )}
+                        </div>
                         <time className="text-sm text-gray-500 whitespace-nowrap">
                           {formatDate(post.date)}
                         </time>

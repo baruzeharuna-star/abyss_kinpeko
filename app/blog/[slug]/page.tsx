@@ -23,22 +23,39 @@ export default function BlogPostPage() {
   const heroRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState({
-    hero: false,
-    content: false,
+    hero: true, // 初期状態で表示
+    content: true, // 初期状態で表示
   });
 
   useEffect(() => {
+    if (!slug) {
+      console.log("No slug provided");
+      setIsLoading(false);
+      return;
+    }
+    
+    console.log("Fetching post with slug:", slug);
     fetch(`/api/blog/${slug}`)
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("Response status:", res.status);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log("Received data:", data);
         if (data.error) {
+          console.error("API error:", data.error);
           setPost(null);
         } else {
+          console.log("Setting post data");
           setPost(data);
         }
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Error fetching post:", error);
         setPost(null);
         setIsLoading(false);
       });

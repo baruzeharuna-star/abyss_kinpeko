@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import GradientBackground from "../../components/GradientBackground";
 
 interface BloodlinePost {
   slug: string;
@@ -14,17 +15,28 @@ interface BloodlinePost {
 }
 
 // 重要ワード（L333, F世代, 系統名など）を検出して強調する関数
-const highlightKeywords = (text: string) => {
+// HTMLタグの中のテキストのみを処理する
+const highlightKeywords = (html: string) => {
+  // HTMLタグを一時的にプレースホルダーに置換
+  const tagPlaceholders: string[] = [];
+  let placeholderIndex = 0;
+  
+  // HTMLタグを保存
+  const htmlWithPlaceholders = html.replace(/<[^>]+>/g, (tag) => {
+    tagPlaceholders.push(tag);
+    return `__TAG_${placeholderIndex++}__`;
+  });
+  
+  // テキスト部分に対してパターンマッチング
+  let highlighted = htmlWithPlaceholders;
+  
   // L333, L-number系のパターン
   const lNumberPattern = /(L\d{3})/gi;
   // F世代（F1, F2, F3など）
   const fGenPattern = /(F\d+)/gi;
   // 系統名（末尾に「系統」がつく）
-  const lineagePattern = /([^\s]+系統)/g;
+  const lineagePattern = /([^\s_]+系統)/g;
   
-  let highlighted = text;
-  
-  // 各パターンをマッチさせて置換
   highlighted = highlighted.replace(lNumberPattern, (match) => 
     `<span class="text-accent-600 font-semibold">${match}</span>`
   );
@@ -34,6 +46,11 @@ const highlightKeywords = (text: string) => {
   highlighted = highlighted.replace(lineagePattern, (match) => 
     `<span class="text-accent-600 font-semibold">${match}</span>`
   );
+  
+  // プレースホルダーを元のHTMLタグに戻す
+  highlighted = highlighted.replace(/__TAG_(\d+)__/g, (_, index) => {
+    return tagPlaceholders[parseInt(index)];
+  });
   
   return highlighted;
 };
@@ -47,22 +64,39 @@ export default function BloodlinePostPage() {
   const heroRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState({
-    hero: false,
-    content: false,
+    hero: true, // 初期状態で表示
+    content: true, // 初期状態で表示
   });
 
   useEffect(() => {
+    if (!slug) {
+      console.log("No slug provided");
+      setIsLoading(false);
+      return;
+    }
+    
+    console.log("Fetching post with slug:", slug);
     fetch(`/api/blog/${slug}`)
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("Response status:", res.status);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log("Received data:", data);
         if (data.error) {
+          console.error("API error:", data.error);
           setPost(null);
         } else {
+          console.log("Setting post data");
           setPost(data);
         }
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Error fetching post:", error);
         setPost(null);
         setIsLoading(false);
       });
@@ -122,6 +156,7 @@ export default function BloodlinePostPage() {
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">血統紹介が見つかりません</h1>
+          <p className="text-gray-600 mb-4">スラッグ: {slug}</p>
           <Link href="/bloodline" className="text-primary-600 hover:text-primary-800">
             血統一覧に戻る
           </Link>
@@ -131,9 +166,8 @@ export default function BloodlinePostPage() {
   }
 
   // HTMLコンテンツに重要ワードの強調を適用
-  const processedContent = post.htmlContent 
-    ? highlightKeywords(post.htmlContent)
-    : highlightKeywords(post.content);
+  // htmlContentがある場合はそのまま使用（既にHTML形式なので）
+  const processedContent = post.htmlContent || post.content;
 
   return (
     <div className="min-h-screen bg-white">
@@ -184,29 +218,31 @@ export default function BloodlinePostPage() {
         </div>
       </section>
 
-      {/* 記事内容セクション - 情報構造を明確化 */}
+      {/* 記事内容セクション - ブログスタイル */}
       <section
         ref={contentRef}
-        className={`py-16 md:py-24 px-4 transition-all duration-1000 ${
+        className={`bg-white py-4 md:py-6 transition-all duration-1000 ${
           isVisible.content ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="max-w-3xl mx-auto">
-          {/* セクションラベル */}
-          <div className="mb-8">
-            <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-2">
-              DETAIL
-            </p>
-          </div>
-          
-          {/* カード構造：情報をブロック化 */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6 md:p-8 shadow-sm">
-            <article className="prose prose-lg max-w-none">
-              <div
-                className="text-gray-700 leading-relaxed prose-headings:text-gray-900 prose-headings:font-bold prose-headings:border-b prose-headings:border-gray-200 prose-headings:pb-2 prose-headings:mb-4 prose-p:text-gray-700 prose-p:mb-4 prose-ul:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline"
-                dangerouslySetInnerHTML={{ __html: processedContent }}
-              />
-            </article>
+        <div className="mx-4 md:mx-6 lg:mx-8">
+          <div className="relative p-2 md:p-3 rounded-2xl shadow-2xl overflow-hidden card-hover group">
+            <GradientBackground variant="card" />
+            <div className="relative z-10 p-10 md:p-16 lg:p-20">
+              <article className="prose prose-lg max-w-none">
+                {post.htmlContent ? (
+                  <div
+                    className="text-gray-700 leading-relaxed prose-headings:text-primary-900 prose-headings:font-bold prose-headings:mt-8 prose-headings:mb-4 prose-headings:text-2xl md:prose-headings:text-3xl prose-p:text-gray-700 prose-p:mb-6 prose-p:leading-relaxed prose-p:text-base md:prose-p:text-lg prose-ul:text-gray-700 prose-ul:mb-6 prose-li:text-gray-700 prose-li:mb-2 prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-hr:border-gray-300 prose-hr:my-8"
+                    dangerouslySetInnerHTML={{ __html: highlightKeywords(post.htmlContent) }}
+                  />
+                ) : (
+                  <div 
+                    className="text-gray-700 leading-relaxed whitespace-pre-line prose-p:text-base md:prose-p:text-lg prose-p:mb-6"
+                    dangerouslySetInnerHTML={{ __html: highlightKeywords(post.content.replace(/\n/g, "<br />")) }}
+                  />
+                )}
+              </article>
+            </div>
           </div>
         </div>
       </section>
