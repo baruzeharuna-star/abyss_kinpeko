@@ -174,10 +174,10 @@ export default function BlogPostPage() {
           isVisible.content ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="mx-4 md:mx-6 lg:mx-8">
+        <div className="mx-2 md:mx-6 lg:mx-8">
           <div className="relative p-2 md:p-3 rounded-2xl shadow-2xl overflow-hidden card-hover group">
             <GradientBackground variant="card" />
-            <div className="relative z-10 p-10 md:p-16 lg:p-20">
+            <div className="relative z-10 p-4 md:p-12 lg:p-20">
               <article className="prose prose-lg max-w-none">
                 {post.htmlContent ? (
                   <div

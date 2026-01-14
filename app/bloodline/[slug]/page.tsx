@@ -93,6 +93,36 @@ export default function BloodlinePostPage() {
     };
   }, []);
 
+  // 外部リンクのクリックイベントを処理
+  useEffect(() => {
+    if (!post?.htmlContent) return;
+
+    const handleLinkClick = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a');
+      
+      if (link && link.href) {
+        const url = new URL(link.href);
+        const currentOrigin = window.location.origin;
+        
+        // 外部リンクの場合、Next.jsのルーティングを回避
+        if (url.origin !== currentOrigin) {
+          e.preventDefault();
+          window.open(link.href, '_blank', 'noopener,noreferrer');
+        }
+      }
+    };
+
+    // コンテンツエリア内のリンククリックを監視
+    const contentArea = document.querySelector('.prose-content') as HTMLElement | null;
+    if (contentArea) {
+      contentArea.addEventListener('click', handleLinkClick);
+      return () => {
+        contentArea.removeEventListener('click', handleLinkClick);
+      };
+    }
+  }, [post?.htmlContent]);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("ja-JP", {
@@ -182,10 +212,10 @@ export default function BloodlinePostPage() {
           isVisible.content ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="mx-4 md:mx-6 lg:mx-8">
+        <div className="mx-2 md:mx-6 lg:mx-8">
           <div className="relative p-2 md:p-3 rounded-2xl shadow-2xl overflow-hidden card-hover group">
             <GradientBackground variant="card" />
-            <div className="relative z-10 p-10 md:p-16 lg:p-20">
+            <div className="relative z-10 p-4 md:p-12 lg:p-20">
               <div className="text-gray-700 leading-relaxed">
                 {post.htmlContent ? (
                   <div

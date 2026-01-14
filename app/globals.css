@@ -373,3 +373,140 @@
 .prose-content blockquote cite::before {
   content: '— ';
 }
+
+/* 血統図（家系図）のスタイル */
+.pedigree-tree {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(249, 250, 251, 0.6) 0%, rgba(243, 244, 246, 0.8) 100%);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.pedigree-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 0.5rem;
+}
+
+.pedigree-label {
+  background: linear-gradient(135deg, #3949ab 0%, #283593 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 2px 4px rgba(57, 73, 171, 0.2);
+  white-space: nowrap;
+}
+
+.pedigree-note {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-align: center;
+  font-style: italic;
+  max-width: 150px;
+  line-height: 1.4;
+}
+
+.pedigree-branches {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  position: relative;
+  padding-top: 1rem;
+}
+
+.pedigree-branches::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 1rem;
+  background: #3949ab;
+  transform: translateX(-50%);
+}
+
+.pedigree-branch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.pedigree-branch::before {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  width: 2px;
+  height: 1rem;
+  background: #3949ab;
+  transform: translateX(-50%);
+}
+
+.pedigree-branches::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #3949ab;
+}
+
+.pedigree-branch:first-child::before {
+  left: 0;
+  width: 50%;
+  height: 2px;
+  top: -1rem;
+}
+
+.pedigree-branch:last-child::before {
+  left: 50%;
+  width: 50%;
+  height: 2px;
+  top: -1rem;
+}
+
+.pedigree-branch:only-child::before {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pedigree-tree {
+    padding: 1rem;
+  }
+  
+  .pedigree-branches {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+  }
+  
+  .pedigree-branches::before,
+  .pedigree-branches::after,
+  .pedigree-branch::before {
+    display: none;
+  }
+  
+  .pedigree-label {
+    font-size: 0.8125rem;
+    padding: 0.4rem 0.8rem;
+    min-width: 100px;
+  }
+  
+  .pedigree-note {
+    font-size: 0.7rem;
+    max-width: 120px;
+  }
+}

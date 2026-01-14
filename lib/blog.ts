@@ -93,7 +93,30 @@ export function getPostBySlug(slug: string): BlogPost | null {
 export async function getPostContentHTML(content: string): Promise<string> {
   try {
     const processedContent = await remark().use(html).process(content);
-    return processedContent.toString();
+    let htmlContent = processedContent.toString();
+    
+    // 外部リンク（http://またはhttps://で始まる）にtarget="_blank"とrel="noopener noreferrer"を追加
+    htmlContent = htmlContent.replace(
+      /<a\s+([^>]*?)href=["'](https?:\/\/[^"']+)["']([^>]*?)>/gi,
+      (match, before, url, after) => {
+        // 既にtargetやrelが設定されているかチェック
+        const hasTarget = /target\s*=/i.test(before + after);
+        const hasRel = /rel\s*=/i.test(before + after);
+        
+        let newAttrs = before;
+        if (!hasTarget) {
+          newAttrs += ' target="_blank"';
+        }
+        if (!hasRel) {
+          newAttrs += ' rel="noopener noreferrer"';
+        }
+        newAttrs += after;
+        
+        return `<a ${newAttrs.trim()}href="${url}">`;
+      }
+    );
+    
+    return htmlContent;
   } catch (error) {
     console.error("Error processing markdown:", error);
     return content.replace(/\n/g, "<br />");
