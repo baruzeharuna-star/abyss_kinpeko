@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import GradientBackground from "../../components/GradientBackground";
+import VideoBackground from "../../components/VideoBackground";
 
 interface BloodlinePost {
   slug: string;
@@ -163,10 +164,11 @@ export default function BloodlinePostPage() {
       {/* Hero Section - Aboutと統一 */}
       <section
         ref={heroRef}
-        className={`relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-28 md:pt-24 transition-all duration-1000 ${
+        className={`relative min-h-[35vh] flex items-center justify-center text-white overflow-hidden pt-28 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
+        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
           <Link
             href="/bloodline"
