@@ -164,7 +164,7 @@ export default function BloodlinePostPage() {
       {/* Hero Section - Aboutと統一 */}
       <section
         ref={heroRef}
-        className={`relative min-h-[35vh] flex items-center justify-center text-white overflow-hidden pt-28 md:pt-24 transition-all duration-1000 ${
+        className={`relative min-h-[35vh] flex items-center justify-center text-gray-900 md:text-white overflow-hidden pt-28 md:pt-24 transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -172,22 +172,22 @@ export default function BloodlinePostPage() {
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
           <Link
             href="/bloodline"
-            className="inline-block text-white/80 hover:text-white mb-4 md:mb-6 transition-colors font-medium text-sm"
+            className="inline-block text-gray-700 md:text-white/80 hover:text-gray-900 md:hover:text-white mb-4 md:mb-6 transition-colors font-medium text-sm"
           >
             ← 血統一覧に戻る
           </Link>
           
           {/* 英字ラベル */}
           <div className="mb-4 md:mb-6">
-            <p className="text-xs md:text-sm font-medium text-accent-300 tracking-wider uppercase mb-2">
+            <p className="text-xs md:text-sm font-medium text-primary-600 md:text-accent-300 tracking-wider uppercase mb-2">
               BLOODLINE RECORD
             </p>
-            <time className="text-sm text-white/70">
+            <time className="text-sm text-gray-600 md:text-white/70">
               {formatDate(post.date)}
             </time>
           </div>
           
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg leading-tight break-words px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-gray-900 md:text-white mb-4 md:drop-shadow-lg leading-tight break-words px-2">
             {post.title}
           </h1>
           
