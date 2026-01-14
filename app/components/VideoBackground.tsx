@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
 interface VideoBackgroundProps {
   src: string;
   poster?: string;
@@ -9,36 +7,16 @@ interface VideoBackgroundProps {
 }
 
 export default function VideoBackground({ src, poster, className = "" }: VideoBackgroundProps) {
-  // 画像のプリロード
-  useEffect(() => {
-    if (poster) {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = poster;
-      link.fetchPriority = "high";
-      document.head.appendChild(link);
-      
-      return () => {
-        if (document.head.contains(link)) {
-          document.head.removeChild(link);
-        }
-      };
-    }
-  }, [poster]);
-
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* モバイル用poster画像（768px未満で表示、posterが指定されている場合のみ） */}
-      {poster && (
-        <div
-          className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${poster})`,
-          }}
-          aria-hidden="true"
-        />
-      )}
+      {/* モバイル用グラデーション背景（768px未満で表示） */}
+      <div
+        className="absolute inset-0 md:hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700"
+        aria-hidden="true"
+      >
+        {/* テクスチャ効果 */}
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
+      </div>
       
       {/* 表示用動画（768px以上で表示、prefers-reduced-motionでは非表示） */}
       <video
