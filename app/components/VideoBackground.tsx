@@ -20,7 +20,9 @@ export default function VideoBackground({ src, poster, className = "" }: VideoBa
       document.head.appendChild(link);
       
       return () => {
-        document.head.removeChild(link);
+        if (document.head.contains(link)) {
+          document.head.removeChild(link);
+        }
       };
     }
   }, [poster]);
@@ -29,12 +31,11 @@ export default function VideoBackground({ src, poster, className = "" }: VideoBa
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
       {/* モバイル用poster画像（768px未満で表示、posterが指定されている場合のみ） */}
       {poster && (
-        <img
-          src={poster}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover md:hidden"
-          loading="eager"
-          fetchPriority="high"
+        <div
+          className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${poster})`,
+          }}
           aria-hidden="true"
         />
       )}
