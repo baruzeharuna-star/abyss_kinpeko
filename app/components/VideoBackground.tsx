@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 interface VideoBackgroundProps {
   src: string;
   poster?: string;
@@ -7,16 +9,32 @@ interface VideoBackgroundProps {
 }
 
 export default function VideoBackground({ src, poster, className = "" }: VideoBackgroundProps) {
+  // 画像のプリロード
+  useEffect(() => {
+    if (poster) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = poster;
+      link.fetchPriority = "high";
+      document.head.appendChild(link);
+      
+      return () => {
+        document.head.removeChild(link);
+      };
+    }
+  }, [poster]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
       {/* モバイル用poster画像（768px未満で表示、posterが指定されている場合のみ） */}
       {poster && (
-        <div
-          className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${poster})`,
-          }}
+        <img
+          src={poster}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+          loading="eager"
+          fetchPriority="high"
           aria-hidden="true"
         />
       )}
