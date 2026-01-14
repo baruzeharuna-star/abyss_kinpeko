@@ -12,14 +12,11 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
       {/* モバイル用背景（768px未満で表示） */}
       {hideMobileImage ? (
-        // グラデーション背景（ヒーローセクション用）
+        // 白背景（ヒーローセクション用）
         <div
-          className="absolute inset-0 md:hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700"
+          className="absolute inset-0 md:hidden bg-white"
           aria-hidden="true"
-        >
-          {/* テクスチャ効果 */}
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
-        </div>
+        />
       ) : (
         // 画像背景（他のセクション用）
         poster && (

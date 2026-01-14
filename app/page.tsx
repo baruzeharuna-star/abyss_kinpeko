@@ -77,20 +77,20 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* ヒーローセクション */}
-      <section className="relative text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+      <section className="relative text-gray-900 md:text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
         <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <p className="text-xs md:text-sm lg:text-base font-medium text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
+            <p className="text-xs md:text-sm lg:text-base font-medium text-gray-700 md:text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
               KINPEKO BREED
             </p>
-            <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 text-white leading-tight">
-              <span className="block">キンペコ(L333)の情報を</span>
-              <span className="block mt-2 md:mt-4">もっと世の中に広げる</span>
+            <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 text-gray-900 md:text-white leading-tight">
+              <span className="block">血統と記録で語る、</span>
+              <span className="block mt-2 md:mt-4">キンペコブリード</span>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl">
-            血統紹介・飼育環境・繁殖/育成の記録をまとめた<br />
-            個人ブリーダーの発信サイトです
+            <p className="text-base md:text-lg lg:text-xl text-gray-700 md:text-white/90 leading-relaxed max-w-2xl">
+            キンペコに関する情報と記録をまとめた<br />
+            個人ブリーダーの発信サイト
             </p>
           </div>
         </div>
