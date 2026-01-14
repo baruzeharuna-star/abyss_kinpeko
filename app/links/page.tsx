@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface LinkItem {
   title: string;
@@ -162,10 +163,12 @@ export default function LinksPage() {
                   </a>
                   <div className="flex flex-col items-center gap-2">
                     <p className="text-xs text-gray-500">QRコード</p>
-                    <img
+                    <Image
                       src={generateQRCode(link.url)}
                       alt={`${link.title}のQRコード`}
-                      className="w-32 h-32 bg-white p-2 rounded-lg border border-gray-200"
+                      width={128}
+                      height={128}
+                      className="bg-white p-2 rounded-lg border border-gray-200"
                     />
                   </div>
                 </div>

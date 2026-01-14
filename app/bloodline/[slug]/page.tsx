@@ -168,7 +168,7 @@ export default function BloodlinePostPage() {
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
-        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" />
+        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
           <Link
             href="/bloodline"

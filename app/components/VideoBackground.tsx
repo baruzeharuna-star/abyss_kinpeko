@@ -4,19 +4,34 @@ interface VideoBackgroundProps {
   src: string;
   poster?: string;
   className?: string;
+  hideMobileImage?: boolean; // スマホで画像を非表示にしてグラデーションにするか
 }
 
-export default function VideoBackground({ src, poster, className = "" }: VideoBackgroundProps) {
+export default function VideoBackground({ src, poster, className = "", hideMobileImage = false }: VideoBackgroundProps) {
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* モバイル用グラデーション背景（768px未満で表示） */}
-      <div
-        className="absolute inset-0 md:hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700"
-        aria-hidden="true"
-      >
-        {/* テクスチャ効果 */}
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
-      </div>
+      {/* モバイル用背景（768px未満で表示） */}
+      {hideMobileImage ? (
+        // グラデーション背景（ヒーローセクション用）
+        <div
+          className="absolute inset-0 md:hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700"
+          aria-hidden="true"
+        >
+          {/* テクスチャ効果 */}
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
+        </div>
+      ) : (
+        // 画像背景（他のセクション用）
+        poster && (
+          <div
+            className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${poster})`,
+            }}
+            aria-hidden="true"
+          />
+        )
+      )}
       
       {/* 表示用動画（768px以上で表示、prefers-reduced-motionでは非表示） */}
       <video

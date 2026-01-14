@@ -78,7 +78,7 @@ export default function Home() {
     <div className="min-h-screen">
       {/* ヒーローセクション */}
       <section className="relative text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" />
+        <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <p className="text-xs md:text-sm lg:text-base font-medium text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
