@@ -14,22 +14,44 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(!lazy);
   const [shouldLoadImage, setShouldLoadImage] = useState(!lazy);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  // 画像のプリロード
+  useEffect(() => {
+    if (!poster || hideMobileImage || shouldLoadImage) return;
+
+    // 画像をプリロード
+    const img = new Image();
+    img.src = poster;
+    img.loading = "eager";
+    
+    // 読み込み完了時に状態を更新
+    img.onload = () => {
+      setShouldLoadImage(true);
+    };
+    img.onerror = () => {
+      setShouldLoadImage(true); // エラーでも表示を試みる
+    };
+  }, [poster, hideMobileImage, shouldLoadImage]);
 
   useEffect(() => {
-    if (!lazy || (shouldLoadVideo && shouldLoadImage)) return;
+    if (!lazy || shouldLoadVideo) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setShouldLoadVideo(true);
-            setShouldLoadImage(true);
+            // 画像は既にプリロードされているので、すぐに表示
+            if (poster && !hideMobileImage) {
+              setShouldLoadImage(true);
+            }
             observer.disconnect();
           }
         });
       },
       {
-        rootMargin: "100px", // 100px手前で読み込み開始（スマホでの負荷軽減）
+        rootMargin: "200px", // 200px手前で読み込み開始（スマホでの読み込み速度向上）
       }
     );
 
@@ -40,7 +62,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
     return () => {
       observer.disconnect();
     };
-  }, [lazy, shouldLoadVideo, shouldLoadImage]);
+  }, [lazy, shouldLoadVideo, poster, hideMobileImage]);
 
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
@@ -52,12 +74,18 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
           aria-hidden="true"
         />
       ) : (
-        // 画像背景（他のセクション用、遅延読み込み）
-        poster && shouldLoadImage && (
-          <div
-            className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
+        // 画像背景（他のセクション用、プリロード済み）
+        poster && (
+          <img
+            ref={imageRef}
+            src={shouldLoadImage ? poster : undefined}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover md:hidden"
+            loading="eager"
+            fetchPriority="high"
             style={{
-              backgroundImage: `url(${poster})`,
+              opacity: shouldLoadImage ? 1 : 0,
+              transition: "opacity 0.3s ease-in-out",
             }}
             aria-hidden="true"
           />
