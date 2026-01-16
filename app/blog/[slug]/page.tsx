@@ -141,7 +141,7 @@ export default function BlogPostPage() {
       {/* ヒーローセクション */}
       <section
         ref={heroRef}
-        className={`relative text-gray-900 py-16 sm:py-20 md:py-32 lg:py-40 overflow-hidden min-h-[400px] sm:min-h-[500px] md:min-h-[600px] transition-all duration-1000 ${
+        className={`relative text-gray-900 pt-16 pb-6 sm:pt-20 sm:pb-8 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -150,17 +150,17 @@ export default function BlogPostPage() {
           <div className="max-w-4xl mx-auto">
             <Link
               href="/blog"
-              className="inline-block text-primary-600 hover:text-primary-800 mb-6 transition-colors font-medium"
+              className="inline-block text-primary-600 hover:text-primary-800 mb-4 sm:mb-5 md:mb-6 transition-colors font-medium"
             >
               ← ブログ一覧に戻る
             </Link>
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-4 sm:mb-5 md:mb-6">
               <div className="h-1 w-16 bg-gradient-to-r from-accent-500 to-primary-600 rounded-full animate-gradient"></div>
               <p className="text-sm md:text-base font-medium text-primary-600 tracking-wider uppercase">
                 {formatDate(post.date)}
               </p>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-gradient">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-3 sm:mb-4 md:mb-8 text-gradient">
               {post.title}
             </h1>
             {/* タグ表示を一旦非表示 */}
@@ -183,7 +183,7 @@ export default function BlogPostPage() {
       {/* 記事内容セクション */}
       <section
         ref={contentRef}
-        className={`bg-white py-4 md:py-6 transition-all duration-1000 ${
+        className={`bg-white pt-4 pb-4 sm:pt-6 sm:pb-6 md:pt-6 md:pb-6 transition-all duration-1000 ${
           isVisible.content ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >

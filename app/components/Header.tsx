@@ -68,11 +68,11 @@ export default function Header() {
                 飼育環境
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/purchase" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
                 購入方法
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/blog" className="px-3 py-2 hover:text-accent-400 transition-colors text-sm lg:text-base">
                 ブログ
@@ -126,7 +126,7 @@ export default function Header() {
                   飼育環境
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/purchase"
                   className="block px-4 py-3 hover:bg-white/10 transition-colors text-base"
@@ -134,7 +134,7 @@ export default function Header() {
                 >
                   購入方法
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/blog"

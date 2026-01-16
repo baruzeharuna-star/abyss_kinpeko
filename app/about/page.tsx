@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BloodlineLinkButton from "../components/BloodlineLinkButton";
 
 export default function AboutPage() {
@@ -21,13 +22,13 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto">
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            <span className="text-accent-600 font-semibold">キンペコ</span>という美しい熱帯魚との出会いから、ブリーディングの世界へ足を踏み入れました。
+           2024年3月に <span className="text-accent-600 font-semibold">キンペコ</span>という美しい熱帯魚と出会い、キンペコ飼育の世界に足を踏み入れました。
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            日々の観察と記録を通じて、個体の成長や特徴を丁寧に把握し、血統の情報を可能な限り明確にしていくことが、私たちの使命だと考えています。
+            日々の観察と記録を通じて、個体の成長や特徴を丁寧に把握し、血統の情報を可能な限り明確にしていくことが重要だと感じています。
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-            キンペコの世界をより多くの人に知っていただくため、情報発信とブリーディングに取り組んでいます。
+            キンペコの世界をより多くの人に知っていただくため、ブリーダーを目指して情報発信とブリーディングに取り組んでいます。
           </p>
         </div>
         {/* セクション区切りライン */}
@@ -44,7 +45,7 @@ export default function AboutPage() {
           {/* 強調文：哲学・思想を左ボーダー付きカードで表現 */}
           <div className="mb-12 pl-6 border-l-4 border-accent-500/60 bg-white/50 py-6 pr-6 rounded-r-lg shadow-sm">
             <p className="text-lg md:text-xl text-gray-800 leading-relaxed italic">
-              「個体の健康と福祉を最優先に考え、適切な環境で丁寧に育てること」
+              「キンペコの魅力を知ってもらうための情報発信を徹底すること」
             </p>
           </div>
 
@@ -52,7 +53,7 @@ export default function AboutPage() {
             <li className="flex items-start">
               <span className="flex-shrink-0 w-2 h-2 bg-accent-500 rounded-full mt-3 mr-4"></span>
               <p className="text-lg text-gray-700 leading-relaxed">
-                個体の健康と福祉を最優先に考え、適切な環境で丁寧に育てること
+                健康的な個体を繁殖するために適切な環境管理を徹底すること
               </p>
             </li>
             <li className="flex items-start">
@@ -64,7 +65,7 @@ export default function AboutPage() {
             <li className="flex items-start">
               <span className="flex-shrink-0 w-2 h-2 bg-accent-500 rounded-full mt-3 mr-4"></span>
               <p className="text-lg text-gray-700 leading-relaxed">
-                ブリーディングを通じて、キンペコの魅力と可能性を追求し続けること
+                私自身が飼育を通じて、キンペコの魅力と可能性を追求し続けること
               </p>
             </li>
           </ul>
@@ -83,30 +84,39 @@ export default function AboutPage() {
             <div className="relative">
               <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-sm"></div>
               <div className="ml-6">
-                <p className="text-sm text-gray-500 mb-2">2020年頃</p>
+                <p className="text-sm text-gray-500 mb-2">2023年3月</p>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  <span className="text-accent-600 font-semibold">キンペコ</span>との出会い。その美しい色彩と優雅な泳ぎに魅了され、飼育を始める
+                  <span className="text-accent-600 font-semibold">某店にて、偶然にもキンペコ</span>と出会う。縁があり、初めてキンペコの飼育を始める
                 </p>
               </div>
             </div>
             <div className="relative">
               <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-sm"></div>
               <div className="ml-6">
-                <p className="text-sm text-gray-500 mb-2">2022年頃</p>
+                <p className="text-sm text-gray-500 mb-2">2024年6月</p>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  ブリーディングに挑戦。<span className="text-accent-600 font-semibold">血統情報</span>の重要性を実感し、記録と情報管理の必要性を認識
+                  キンペコの魅力にハマり<span className="text-accent-600 font-semibold">什器水槽（多段水槽）</span>を半自作し、設置する
                 </p>
               </div>
             </div>
             <div className="relative">
               <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-sm"></div>
               <div className="ml-6">
-                <p className="text-sm text-gray-500 mb-2">2024年頃</p>
+                <p className="text-sm text-gray-500 mb-2">2025年5月</p>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  情報発信を本格化。Webサイトを通じて、より多くの人にキンペコの魅力を伝える活動を開始
+                  初めてのキンペコ繁殖を成功させる
+                </p>
+              </div>
+              <div className="relative">
+              <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-sm"></div>
+              <div className="ml-6">
+                <p className="text-sm text-gray-500 mb-2">2025年9月</p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  キンペコ飼育に関するYoutube動画の投稿を始める
                 </p>
               </div>
             </div>
+          </div>
           </div>
         </div>
         {/* セクション区切りライン */}
@@ -117,27 +127,13 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 px-4 bg-gray-50">
         <div className="max-w-3xl mx-auto">
           <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg bg-gradient-to-br from-primary-900/20 via-primary-800/10 to-accent-500/10">
-            {/* プレースホルダー：実際の画像に置き換え可能 */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center px-8">
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-accent-500/20 to-accent-600/30 border-2 border-accent-500/40 flex items-center justify-center">
-                  <svg className="w-12 h-12 text-accent-600/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <p className="text-sm text-gray-500 italic">
-                  {/* 実際の画像を配置する場合は、以下のコメントアウト部分を使用 */}
-                  {/* <Image
-                    src="/images/about/breeding-environment.jpg"
-                    alt="ブリーディング環境"
-                    fill
-                    className="object-cover"
-                    priority
-                  /> */}
-                  ブリーディング環境の写真
-                </p>
-              </div>
-            </div>
+            <Image
+              src="/images/about/breeding_pic.jpg"
+              alt="ブリーディング環境"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -149,7 +145,7 @@ export default function AboutPage() {
             <span className="text-accent-600">い</span>まやっていること
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-8">
-            現在は、約2畳の専用スペースでブリーディングを行っています。日々の観察と記録を大切にしながら、個体の成長をサポートしています。
+            現在は、約2畳の専用スペースでキンペコの飼育を行っています。日々の観察と記録を大切にしながら、情報発信に力を入れています。
           </p>
           <ul className="space-y-4">
             <li className="flex items-start">
@@ -167,7 +163,7 @@ export default function AboutPage() {
             <li className="flex items-start">
               <span className="text-accent-500 mr-3 font-bold">•</span>
               <p className="text-lg text-gray-700 leading-relaxed">
-                情報発信とコミュニティへの貢献
+                情報発信とYoutube動画の投稿
               </p>
             </li>
           </ul>
@@ -179,7 +175,7 @@ export default function AboutPage() {
       {/* Link Section */}
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <BloodlineLinkButton>ブリードしている血統を見る</BloodlineLinkButton>
+          <BloodlineLinkButton>繁殖している血統を見る</BloodlineLinkButton>
         </div>
       </section>
     </div>

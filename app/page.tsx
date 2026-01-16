@@ -82,12 +82,12 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4 w-full">
           <div className="max-w-4xl mx-auto text-center md:text-left">
             <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 text-gray-900 md:text-white leading-tight">
-              <span className="block">血統と記録で語る、</span>
-              <span className="block mt-2 md:mt-4">キンペコブリード</span>
+              <span className="block">実体験と記録で語る、</span>
+              <span className="block mt-2 md:mt-4">キンペコ繁殖日記</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-gray-700 md:text-white/90 leading-relaxed max-w-2xl mx-auto md:mx-0">
             キンペコに関する情報と記録をまとめた<br />
-            個人ブリーダーの発信サイト
+            キンペコブリーダーを目指すAbyssの発信サイト
             </p>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function Home() {
                   はじめて見ていただいた方へ
                 </h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
                 <Link 
                   href="/about" 
                   className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
@@ -124,7 +124,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
-                    ブリーダーとしての想いとこだわりをご紹介します
+                    キンペコの飼育環境やモットーをご紹介します
                   </p>
                 </Link>
                 <Link 
@@ -138,10 +138,10 @@ export default function Home() {
                     </svg>
                   </div>
                   <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
-                    日々の育成状況、成長状況の記録を更新しています
+                    日々の育成状況、キンペコに関する情報を更新しています
                   </p>
                 </Link>
-                <Link 
+                {/* <Link 
                   href="/purchase" 
                   className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
                 >
@@ -152,9 +152,9 @@ export default function Home() {
                     </svg>
                   </div>
                   <p className="text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
-                    私のブリードしたキンペコの購入方法をご案内いたします
+                    ！準備中！
                   </p>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function Home() {
                  特に初心者にとっては大きな壁になることがあります
                 </p>
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
-                 私が実際に育てた個体について分かる限りの情報を整理して発信しています
+                 私が繁殖している血統について分かる限りの情報を整理して発信しています
                 </p>
               </div>
             </div>
