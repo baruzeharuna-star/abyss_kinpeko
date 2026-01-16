@@ -169,7 +169,7 @@ export default function BloodlinePostPage() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">血統紹介が見つかりません</h1>
           <p className="text-gray-600 mb-4">スラッグ: {slug}</p>
-          <Link href="/bloodline" className="text-primary-600 hover:text-primary-800">
+          <Link href="/bloodline" prefetch={true} className="text-primary-600 hover:text-primary-800">
             血統一覧に戻る
           </Link>
         </div>
@@ -194,6 +194,11 @@ export default function BloodlinePostPage() {
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
           <Link
             href="/bloodline"
+            prefetch={true}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/bloodline';
+            }}
             className="inline-block text-gray-700 md:text-white/80 hover:text-gray-900 md:hover:text-white mb-4 md:mb-6 transition-colors font-medium text-sm"
           >
             ← 血統一覧に戻る

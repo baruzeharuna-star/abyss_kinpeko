@@ -150,7 +150,7 @@ export default function BlogPostPage() {
       {/* ヒーローセクション */}
       <section
         ref={heroRef}
-        className={`relative text-gray-900 pt-16 pb-6 sm:pt-20 sm:pb-8 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden transition-all duration-1000 ${
+        className={`relative text-gray-900 pt-24 pb-6 sm:pt-20 sm:pb-8 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
