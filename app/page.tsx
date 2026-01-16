@@ -115,7 +115,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
                 <Link 
                   href="/about" 
-                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                  className="group block bg-black/30 md:bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-black/40 md:hover:bg-white/20 hover:border-white/40 active:bg-black/50 md:active:bg-white/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">自己紹介</h3>
@@ -129,7 +129,7 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="/blog" 
-                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                  className="group block bg-black/30 md:bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-black/40 md:hover:bg-white/20 hover:border-white/40 active:bg-black/50 md:active:bg-white/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">ブログ</h3>
@@ -180,7 +180,7 @@ export default function Home() {
                   飼育環境
                 </h2>
               </div>
-              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+              <div className="max-w-3xl bg-black/30 md:bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
                   約2畳の水槽専用部屋でブリードをしています<br />
                   水温は30度を維持し、毎日の換水で水質を管理しています
@@ -214,7 +214,7 @@ export default function Home() {
                   血統
                 </h2>
               </div>
-              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+              <div className="max-w-3xl bg-black/30 md:bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed mb-4 md:mb-6 drop-shadow-lg">
                  キンペコ（L333）の血統情報は分かりづらく<br />
                  特に初心者にとっては大きな壁になることがあります
@@ -266,7 +266,7 @@ export default function Home() {
                       <Link
                         key={post.slug}
                         href={`/blog/${post.slug}`}
-                        className="block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
+                        className="block bg-black/30 md:bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 hover:bg-black/40 md:hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
                       >
                         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-4">
                           <div className="flex-1">

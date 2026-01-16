@@ -14,20 +14,18 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(!lazy);
   const [shouldLoadImage, setShouldLoadImage] = useState(!lazy);
-  // 初期状態でモバイル判定（SSR対応）
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
+  // 初期状態はtrue（モバイルと仮定）で、クライアント側で再評価する（SSR対応）
+  const [isMobile, setIsMobile] = useState(true);
   const imageLoadedRef = useRef(false);
 
-  // モバイル判定（リサイズ時のみ更新）
+  // モバイル判定（初回レンダリング時とリサイズ時）
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
+    
+    // 初回レンダリング時に判定
+    checkMobile();
     
     window.addEventListener('resize', checkMobile);
     
