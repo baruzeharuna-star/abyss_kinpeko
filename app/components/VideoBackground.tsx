@@ -32,9 +32,33 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   }, []);
 
   useEffect(() => {
-    // モバイルでは動画を読み込まない
+    // モバイルでは動画を読み込まないが、画像は読み込む必要がある
     if (isMobile) {
       setShouldLoadVideo(false);
+      // モバイルで画像が必要な場合、IntersectionObserverで画像を読み込む
+      if (poster && !hideMobileImage && lazy && !shouldLoadImage) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setShouldLoadImage(true);
+                observer.disconnect();
+              }
+            });
+          },
+          {
+            rootMargin: "50px",
+          }
+        );
+
+        if (containerRef.current) {
+          observer.observe(containerRef.current);
+        }
+
+        return () => {
+          observer.disconnect();
+        };
+      }
       return;
     }
 
@@ -54,7 +78,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
         });
       },
       {
-        rootMargin: isMobile ? "50px" : "200px", // モバイルでは小さく
+        rootMargin: "200px",
       }
     );
 
@@ -65,7 +89,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
     return () => {
       observer.disconnect();
     };
-  }, [lazy, shouldLoadVideo, poster, hideMobileImage, isMobile]);
+  }, [lazy, shouldLoadVideo, shouldLoadImage, poster, hideMobileImage, isMobile]);
 
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
