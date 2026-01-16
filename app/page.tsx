@@ -81,9 +81,6 @@ export default function Home() {
         <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} lazy={false} />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <p className="text-xs md:text-sm lg:text-base font-medium text-gray-700 md:text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
-              KINPEKO BREED
-            </p>
             <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 text-gray-900 md:text-white leading-tight">
               <span className="block">血統と記録で語る、</span>
               <span className="block mt-2 md:mt-4">キンペコブリード</span>
@@ -174,7 +171,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/environment_news.mp4" poster="/images/background/environment_news.png" />
+            <VideoBackground src="/videos/environment_news.mp4" poster="/images/background/environment_news.png" lazy={false} />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">
@@ -208,7 +205,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
-            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/background/water-background_content.png" />
+            <VideoBackground src="/videos/water-background_content.mp4" poster="/images/background/water-background_content.png" lazy={false} />
             {/* テキストカード */}
             <div className="relative z-10 px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
               <div className="mb-8 md:mb-12 lg:mb-16">

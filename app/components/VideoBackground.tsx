@@ -14,16 +14,21 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(!lazy);
   const [shouldLoadImage, setShouldLoadImage] = useState(!lazy);
-  const [isMobile, setIsMobile] = useState(false);
+  // 初期状態でモバイル判定（SSR対応）
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
   const imageLoadedRef = useRef(false);
 
-  // モバイル判定
+  // モバイル判定（リサイズ時のみ更新）
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
     
-    checkMobile();
     window.addEventListener('resize', checkMobile);
     
     return () => {
@@ -32,11 +37,19 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   }, []);
 
   useEffect(() => {
+    // lazy=falseの場合は即座に読み込む
+    if (!lazy) {
+      if (poster && !hideMobileImage) {
+        setShouldLoadImage(true);
+      }
+      return;
+    }
+
     // モバイルでは動画を読み込まないが、画像は読み込む必要がある
     if (isMobile) {
       setShouldLoadVideo(false);
       // モバイルで画像が必要な場合、IntersectionObserverで画像を読み込む
-      if (poster && !hideMobileImage && lazy && !shouldLoadImage) {
+      if (poster && !hideMobileImage && !shouldLoadImage) {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -47,7 +60,8 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
             });
           },
           {
-            rootMargin: "50px",
+            rootMargin: "300px", // 大きくして早めに読み込み開始
+            threshold: 0.01, // 少しでも見えたら読み込み
           }
         );
 
@@ -62,7 +76,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
       return;
     }
 
-    if (!lazy || shouldLoadVideo) return;
+    if (shouldLoadVideo) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -78,7 +92,8 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
         });
       },
       {
-        rootMargin: "200px",
+        rootMargin: "300px", // 大きくして早めに読み込み開始
+        threshold: 0.01,
       }
     );
 
@@ -107,8 +122,9 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
             src={poster}
             alt=""
             className="absolute inset-0 w-full h-full object-cover md:hidden"
-            loading="lazy"
+            loading={lazy ? "lazy" : "eager"}
             fetchPriority="high"
+            decoding="async"
             onLoad={() => {
               imageLoadedRef.current = true;
             }}
