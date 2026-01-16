@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "renumber:blog": "tsx scripts/renumber-blog-posts.ts",
+    "clean:blog": "tsx scripts/clean-blog-links.ts"
   },
   "dependencies": {
     "next": "^14.2.0",
@@ -25,7 +27,8 @@
     "postcss": "^8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "^14.2.0"
+    "eslint-config-next": "^14.2.0",
+    "tsx": "^4.7.0"
   },
   "optionalDependencies": {
     "@types/gray-matter": "^4.0.3"
