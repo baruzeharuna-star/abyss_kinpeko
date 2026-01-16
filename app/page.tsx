@@ -77,15 +77,15 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* ヒーローセクション */}
-      <section className="relative text-gray-900 md:text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+      <section className="relative text-gray-900 md:text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden min-h-[60vh] md:min-h-auto flex items-center">
         <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} lazy={false} />
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+        <div className="relative z-10 container mx-auto px-4 w-full">
+          <div className="max-w-4xl mx-auto text-center md:text-left">
             <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8 text-gray-900 md:text-white leading-tight">
               <span className="block">血統と記録で語る、</span>
               <span className="block mt-2 md:mt-4">キンペコブリード</span>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-gray-700 md:text-white/90 leading-relaxed max-w-2xl">
+            <p className="text-base md:text-lg lg:text-xl text-gray-700 md:text-white/90 leading-relaxed max-w-2xl mx-auto md:mx-0">
             キンペコに関する情報と記録をまとめた<br />
             個人ブリーダーの発信サイト
             </p>
