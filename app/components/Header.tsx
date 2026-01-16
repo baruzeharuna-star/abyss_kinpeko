@@ -8,16 +8,17 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#161c30]/95 text-white shadow-lg border-b border-[#161c30]/60">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm md:backdrop-blur-md bg-[#161c30]/95 text-white shadow-lg border-b border-[#161c30]/60">
       <nav className="container mx-auto lg:mx-0 px-4 lg:pl-4 py-2 md:py-1 max-w-4xl lg:max-w-full">
-      <div className="flex items-center justify-between h-20 md:h-216 lg:h-20">
+      <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
       <Link href="/" className="flex items-center h-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] hover:opacity-80 transition-opacity">
             <Image
               src="/images/logo/logo_side.png"
               alt="ABYSS BREED ロゴ"
               width={1536}
               height={1024}
-              className="w-full h-64 sm:h-64 md:h-80 lg:h-96 object-contain"
+              sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 300px"
+              className="w-full h-12 sm:h-14 md:h-16 lg:h-20 object-contain"
               priority
             />
           </Link>

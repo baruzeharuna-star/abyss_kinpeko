@@ -14,9 +14,30 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(!lazy);
   const [shouldLoadImage, setShouldLoadImage] = useState(!lazy);
+  const [isMobile, setIsMobile] = useState(false);
   const imageLoadedRef = useRef(false);
 
+  // モバイル判定
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    // モバイルでは動画を読み込まない
+    if (isMobile) {
+      setShouldLoadVideo(false);
+      return;
+    }
+
     if (!lazy || shouldLoadVideo) return;
 
     const observer = new IntersectionObserver(
@@ -33,7 +54,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
         });
       },
       {
-        rootMargin: "200px", // 200px手前で読み込み開始
+        rootMargin: isMobile ? "50px" : "200px", // モバイルでは小さく
       }
     );
 
@@ -44,7 +65,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
     return () => {
       observer.disconnect();
     };
-  }, [lazy, shouldLoadVideo, poster, hideMobileImage]);
+  }, [lazy, shouldLoadVideo, poster, hideMobileImage, isMobile]);
 
   return (
     <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
@@ -72,8 +93,8 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
         )
       )}
       
-      {/* 表示用動画（768px以上で表示、prefers-reduced-motionでは非表示） */}
-      {shouldLoadVideo && (
+      {/* 表示用動画（768px以上で表示、モバイルでは完全にレンダリングしない、prefers-reduced-motionでは非表示） */}
+      {!isMobile && shouldLoadVideo && (
         <video
           autoPlay
           loop
@@ -85,6 +106,7 @@ export default function VideoBackground({ src, poster, className = "", hideMobil
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
+            willChange: "transform",
           }}
         >
           <source src={src} type="video/mp4" />

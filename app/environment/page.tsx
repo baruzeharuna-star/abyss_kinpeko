@@ -6,7 +6,7 @@ export default function EnvironmentPage() {
       {/* Hero Section */}
       <section className="relative min-h-[35vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 overflow-hidden pt-20 md:pt-24">
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
             <span className="text-accent-400">飼育</span>環境
           </h1>
           <p className="text-lg md:text-xl text-white/90">

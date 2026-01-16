@@ -22,35 +22,58 @@ export default function BloodlinePage() {
   });
 
   useEffect(() => {
-    // カテゴリがbloodlineの記事を取得
-    fetch("/api/blog?category=bloodline")
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    let cancelled = false;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/blog?category=bloodline", {
+          cache: 'force-cache',
+          next: { revalidate: 60 },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch');
+        }
+
+        const data = await res.json();
+        if (!cancelled) {
+          setPosts(data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error('Error fetching posts:', error);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const createObserver = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-      if (!ref.current) return;
+      if (!ref.current || isVisible[key]) return; // 既に表示済みならスキップ
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setIsVisible((prev) => ({ ...prev, [key]: true }));
+              observer.disconnect(); // 一度表示されたら切断
             }
           });
         },
         {
           threshold: 0.1,
-          rootMargin: "0px 0px -100px 0px",
+          rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px", // モバイルでは小さく
         }
       );
 
@@ -64,7 +87,7 @@ export default function BloodlinePage() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [isVisible]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -91,7 +114,7 @@ export default function BloodlinePage() {
               BLOODLINE
             </p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
             <span className="text-accent-400">血統</span>紹介
           </h1>
           <p className="text-lg md:text-xl text-white/90">
@@ -101,7 +124,7 @@ export default function BloodlinePage() {
       </section>
 
       {/* セクション区切り：余白とラベルで区切る */}
-      <section className="py-12 md:py-16 px-4">
+      <section className="py-10 sm:py-12 md:py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
             <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-4">
@@ -120,7 +143,7 @@ export default function BloodlinePage() {
       {/* 血統一覧セクション */}
       <section
         ref={postsRef}
-        className={`bg-gray-50 py-12 md:py-16 transition-all duration-1000 ${
+        className={`bg-gray-50 py-10 sm:py-12 md:py-16 transition-all duration-1000 ${
           isVisible.posts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >

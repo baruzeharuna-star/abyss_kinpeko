@@ -30,21 +30,23 @@ export default function Home() {
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const createObserver = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-      if (!ref.current) return;
+      if (!ref.current || isVisible[key]) return; // 既に表示済みならスキップ
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setIsVisible((prev) => ({ ...prev, [key]: true }));
+              observer.disconnect(); // 一度表示されたら切断
             }
           });
         },
         {
           threshold: 0.1,
-          rootMargin: "0px 0px -100px 0px",
+          rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px", // モバイルでは小さく
         }
       );
 
@@ -60,18 +62,39 @@ export default function Home() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [isVisible]);
 
   useEffect(() => {
-    // お知らせカテゴリのブログ記事を取得（最新3件）
-    fetch("/api/blog?category=お知らせ")
-      .then((res) => res.json())
-      .then((data) => {
-        setNewsPosts(data.slice(0, 3)); // 最新3件のみ
-      })
-      .catch(() => {
-        setNewsPosts([]);
-      });
+    let cancelled = false;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/blog?category=お知らせ", {
+          cache: 'force-cache',
+          next: { revalidate: 60 }, // 60秒ごとに再検証
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch');
+        }
+
+        const data = await res.json();
+        if (!cancelled) {
+          setNewsPosts(data.slice(0, 3)); // 最新3件のみ
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error('Error fetching posts:', error);
+          setNewsPosts([]);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      cancelled = true; // クリーンアップ
+    };
   }, []);
 
   return (
@@ -79,7 +102,7 @@ export default function Home() {
       {/* ヒーローセクション */}
       <section className="relative text-gray-900 md:text-white pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
         <VideoBackground src="/videos/water-background_hero.mp4" poster="/images/background/water-background_hero.jpg" hideMobileImage={true} lazy={false} />
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <p className="text-xs md:text-sm lg:text-base font-medium text-gray-700 md:text-white/80 mb-3 md:mb-4 tracking-wider uppercase">
               KINPEKO BREED
@@ -103,7 +126,7 @@ export default function Home() {
           isVisible.service ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 md:translate-y-8"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
             <VideoBackground src="/videos/background_bloodline.mp4" poster="/images/background/background_bloodline.png" lazy={false} />
@@ -118,7 +141,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
                 <Link 
                   href="/about" 
-                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">自己紹介</h3>
@@ -132,7 +155,7 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="/blog" 
-                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">ブログ</h3>
@@ -146,7 +169,7 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="/purchase" 
-                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
+                  className="group block bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 active:bg-white/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3 md:mb-4">
                     <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg group-hover:text-accent-300 transition-colors flex-1">購入方法</h3>
@@ -171,7 +194,7 @@ export default function Home() {
           isVisible.environment ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 md:translate-y-8"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
             <VideoBackground src="/videos/environment_news.mp4" poster="/images/background/environment_news.png" />
@@ -183,7 +206,7 @@ export default function Home() {
                   飼育環境
                 </h2>
               </div>
-              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed drop-shadow-lg">
                   約2畳の水槽専用部屋でブリードをしています<br />
                   水温は30度を維持し、毎日の換水で水質を管理しています
@@ -205,7 +228,7 @@ export default function Home() {
           isVisible.about ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 md:translate-y-8"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
             <VideoBackground src="/videos/water-background_content.mp4" poster="/images/background/water-background_content.png" />
@@ -217,7 +240,7 @@ export default function Home() {
                   血統
                 </h2>
               </div>
-              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+              <div className="max-w-3xl bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 border border-white/20">
                 <p className="text-base md:text-lg text-white leading-relaxed mb-4 md:mb-6 drop-shadow-lg">
                  キンペコ（L333）の血統情報は分かりづらく<br />
                  特に初心者にとっては大きな壁になることがあります
@@ -242,7 +265,7 @@ export default function Home() {
           isVisible.news ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 md:translate-y-8"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* 動画背景カード */}
           <div className="relative rounded-xl md:rounded-2xl shadow-2xl overflow-hidden">
             <VideoBackground src="/videos/background_info.mp4" poster="/images/background/background_info.png" />
@@ -269,7 +292,7 @@ export default function Home() {
                       <Link
                         key={post.slug}
                         href={`/blog/${post.slug}`}
-                        className="block bg-white/10 md:backdrop-blur-sm rounded-lg p-4 md:p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
+                        className="block bg-white/10 md:backdrop-blur-sm rounded-lg p-5 sm:p-4 md:p-6 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
                       >
                         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-4">
                           <div className="flex-1">

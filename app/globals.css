@@ -139,10 +139,12 @@
     background-size: 300% 300%;
     animation: gradient 6s ease infinite;
     filter: drop-shadow(0 2px 4px rgba(26, 35, 126, 0.3));
+    will-change: background-position;
   }
   
   .card-hover {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
   }
   
   .card-hover:hover {
@@ -152,6 +154,27 @@
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient 8s ease infinite;
+    will-change: background-position;
+  }
+}
+
+/* モバイルでのアニメーション軽量化 */
+@media (max-width: 768px) {
+  .text-gradient {
+    filter: none; /* モバイルではdrop-shadowを削除 */
+    animation-duration: 12s; /* 6s → 12s に変更 */
+  }
+  
+  .bg-card-gradient::after {
+    animation-duration: 20s; /* 10s → 20s に変更 */
+  }
+  
+  .animate-gradient {
+    animation-duration: 16s; /* 8s → 16s に変更 */
+  }
+  
+  .card-hover {
+    transition-duration: 0.3s; /* 0.4s → 0.3s に変更 */
   }
 }
 
@@ -217,10 +240,19 @@
   }
 }
 
-/* prefers-reduced-motion対応：動画を非表示 */
+/* prefers-reduced-motion対応：動画とアニメーションを無効化 */
 @media (prefers-reduced-motion: reduce) {
   .video-background {
     display: none !important;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

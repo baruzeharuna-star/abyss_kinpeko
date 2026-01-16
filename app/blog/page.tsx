@@ -26,16 +26,37 @@ export default function BlogPage() {
   });
 
   useEffect(() => {
-    // クライアントサイドでブログ記事を取得（血統記事は除外）
-    fetch("/api/blog?excludeCategory=bloodline")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllPosts(data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    let cancelled = false;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/blog?excludeCategory=bloodline", {
+          cache: 'force-cache',
+          next: { revalidate: 60 },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch');
+        }
+
+        const data = await res.json();
+        if (!cancelled) {
+          setAllPosts(data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error('Error fetching posts:', error);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // ページネーション計算
@@ -46,21 +67,23 @@ export default function BlogPage() {
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const createObserver = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-      if (!ref.current) return;
+      if (!ref.current || isVisible[key]) return; // 既に表示済みならスキップ
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setIsVisible((prev) => ({ ...prev, [key]: true }));
+              observer.disconnect(); // 一度表示されたら切断
             }
           });
         },
         {
           threshold: 0.1,
-          rootMargin: "0px 0px -100px 0px",
+          rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px", // モバイルでは小さく
         }
       );
 
@@ -74,7 +97,7 @@ export default function BlogPage() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [isVisible]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -101,7 +124,7 @@ export default function BlogPage() {
               BLOG
             </p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
             <span className="text-accent-400">ブ</span>ログ
           </h1>
           <p className="text-lg md:text-xl text-white/90">
@@ -111,7 +134,7 @@ export default function BlogPage() {
       </section>
 
       {/* セクション区切り：余白とラベルで区切る */}
-      <section className="py-12 md:py-16 px-4">
+      <section className="py-10 sm:py-12 md:py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
             <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-4">
@@ -130,7 +153,7 @@ export default function BlogPage() {
       {/* ブログ一覧セクション */}
       <section
         ref={postsRef}
-        className={`bg-gray-50 py-12 md:py-16 transition-all duration-1000 ${
+        className={`bg-gray-50 py-10 sm:py-12 md:py-16 transition-all duration-1000 ${
           isVisible.posts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
@@ -203,7 +226,7 @@ export default function BlogPage() {
                   <button
                     onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-5 py-3 sm:px-4 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     前へ
                   </button>
@@ -219,7 +242,7 @@ export default function BlogPage() {
                           <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
-                            className={`px-4 py-2 rounded-lg transition-colors ${
+                            className={`px-5 py-3 sm:px-4 sm:py-2 rounded-lg transition-colors ${
                               currentPage === page
                                 ? "bg-primary-600 text-white"
                                 : "bg-white border border-gray-300 hover:bg-gray-50"
@@ -244,7 +267,7 @@ export default function BlogPage() {
                   <button
                     onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-5 py-3 sm:px-4 sm:py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     次へ
                   </button>

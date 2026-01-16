@@ -29,55 +29,68 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     if (!slug) {
-      console.log("No slug provided");
       setIsLoading(false);
       return;
     }
     
-    console.log("Fetching post with slug:", slug);
-    fetch(`/api/blog/${slug}`)
-      .then((res) => {
-        console.log("Response status:", res.status);
+    let cancelled = false;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/blog/${slug}`, {
+          cache: 'force-cache',
+          next: { revalidate: 300 }, // 5分ごとに再検証
+        });
+
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Received data:", data);
-        if (data.error) {
-          console.error("API error:", data.error);
-          setPost(null);
-        } else {
-          console.log("Setting post data");
-          setPost(data);
+
+        const data = await res.json();
+        if (!cancelled) {
+          if (data.error) {
+            console.error("API error:", data.error);
+            setPost(null);
+          } else {
+            setPost(data);
+          }
+          setIsLoading(false);
         }
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching post:", error);
-        setPost(null);
-        setIsLoading(false);
-      });
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Error fetching post:", error);
+          setPost(null);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const createObserver = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-      if (!ref.current) return;
+      if (!ref.current || isVisible[key]) return; // 既に表示済みならスキップ
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setIsVisible((prev) => ({ ...prev, [key]: true }));
+              observer.disconnect(); // 一度表示されたら切断
             }
           });
         },
         {
           threshold: 0.1,
-          rootMargin: "0px 0px -100px 0px",
+          rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px", // モバイルでは小さく
         }
       );
 
@@ -91,7 +104,7 @@ export default function BlogPostPage() {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, []);
+  }, [isVisible]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -128,7 +141,7 @@ export default function BlogPostPage() {
       {/* ヒーローセクション */}
       <section
         ref={heroRef}
-        className={`relative text-gray-900 py-32 md:py-40 overflow-hidden min-h-[600px] transition-all duration-1000 ${
+        className={`relative text-gray-900 py-16 sm:py-20 md:py-32 lg:py-40 overflow-hidden min-h-[400px] sm:min-h-[500px] md:min-h-[600px] transition-all duration-1000 ${
           isVisible.hero ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -147,7 +160,7 @@ export default function BlogPostPage() {
                 {formatDate(post.date)}
               </p>
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 text-gradient">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 text-gradient">
               {post.title}
             </h1>
             {/* タグ表示を一旦非表示 */}

@@ -98,7 +98,7 @@ export default function LinksPage() {
               LINKS
             </p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
             <span className="text-accent-400">リ</span>ンク集
           </h1>
           <p className="text-lg md:text-xl text-white/90">
@@ -108,7 +108,7 @@ export default function LinksPage() {
       </section>
 
       {/* セクション区切り：余白とラベルで区切る */}
-      <section className="py-12 md:py-16 px-4">
+      <section className="py-10 sm:py-12 md:py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
             <p className="text-xs font-medium text-gray-400 tracking-wider uppercase mb-4">
@@ -127,7 +127,7 @@ export default function LinksPage() {
       {/* リンク一覧セクション */}
       <section
         ref={linksRef}
-        className={`bg-gray-50 py-12 md:py-16 transition-all duration-1000 ${
+        className={`bg-gray-50 py-10 sm:py-12 md:py-16 transition-all duration-1000 ${
           isVisible.links ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
@@ -157,7 +157,7 @@ export default function LinksPage() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-4 py-2 bg-[#161c30] hover:bg-[#1a2338] text-white font-medium rounded-lg transition-colors text-sm"
+                    className="inline-flex items-center justify-center px-5 py-3 sm:px-4 sm:py-2 bg-[#161c30] hover:bg-[#1a2338] text-white font-medium rounded-lg transition-colors text-sm"
                   >
                     リンクを開く →
                   </a>
