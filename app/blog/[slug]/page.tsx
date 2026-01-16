@@ -51,8 +51,10 @@ export default function BlogPostPage() {
           if (data.error) {
             console.error("API error:", data.error);
             setPost(null);
+            document.title = "記事が見つかりません | キンペコ（L333）ブリード記録";
           } else {
             setPost(data);
+            document.title = `${data.title} | キンペコ（L333）ブリード記録`;
           }
           setIsLoading(false);
         }
@@ -60,6 +62,7 @@ export default function BlogPostPage() {
         if (!cancelled) {
           console.error("Error fetching post:", error);
           setPost(null);
+          document.title = "記事が見つかりません | キンペコ（L333）ブリード記録";
           setIsLoading(false);
         }
       }
@@ -114,6 +117,12 @@ export default function BlogPostPage() {
       day: "numeric",
     });
   };
+
+  useEffect(() => {
+    if (isLoading) {
+      document.title = "読み込み中... | キンペコ（L333）ブリード記録";
+    }
+  }, [isLoading]);
 
   if (isLoading) {
     return (
