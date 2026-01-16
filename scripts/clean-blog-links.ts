@@ -48,6 +48,13 @@ function cleanHatenaLinks(content: string): string {
     content = content.replace(`__IMAGE_PLACEHOLDER_${index}__`, image);
   });
 
+  // 段落の間に適切な改行を追加
+  // 連続する改行を2つに統一し、段落の間に空行を確保
+  content = content
+    .replace(/\n{3,}/g, "\n\n") // 3つ以上の改行を2つに
+    .replace(/([。！？])\n([^\n])/g, "$1\n\n$2") // 句点の後に改行を追加
+    .replace(/([。！？])\s+([^\n])/g, "$1\n\n$2"); // 句点の後にスペースがある場合も改行に
+
   return content;
 }
 
