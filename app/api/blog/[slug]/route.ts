@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { getPostBySlug, getPostContentHTML } from "../../../../lib/blog";
 
+// 開発環境では常に最新のデータを取得するため、動的レンダリングを強制
+export const dynamic = 'force-dynamic';
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }

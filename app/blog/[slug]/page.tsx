@@ -38,8 +38,7 @@ export default function BlogPostPage() {
     const fetchData = async () => {
       try {
         const res = await fetch(`/api/blog/${slug}`, {
-          cache: 'force-cache',
-          next: { revalidate: 300 }, // 5分ごとに再検証
+          cache: 'no-store', // 開発環境では常に最新データを取得
         });
 
         if (!res.ok) {
