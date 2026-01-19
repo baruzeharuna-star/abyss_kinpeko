@@ -34,6 +34,15 @@ Vercelのプロジェクト設定で環境変数を追加：
    - **Name**: `NEXT_PUBLIC_SITE_URL`
    - **Value**: `https://abyss-kinpeko.com`
    - **Environment**: Production, Preview, Development すべてにチェック
+   
+   - **Name**: `NEXT_PUBLIC_GA_ID`（Google Analyticsを使用する場合）
+   - **Value**: `G-XXXXXXXXXX`（Google Analyticsで取得した測定ID）
+   - **Environment**: Production, Preview, Development すべてにチェック
+   
+   **Google Analyticsの設定方法**:
+   1. [Google Analytics](https://analytics.google.com/) でアカウントを作成
+   2. プロパティを作成して測定IDを取得
+   3. 上記の環境変数に設定
 
 ### 4. デプロイ
 

@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.variable} ${notoSansJP.variable} font-sans flex flex-col min-h-screen`}>
+        <GoogleAnalytics />
         <Script
           id="organization-schema"
           type="application/ld+json"
