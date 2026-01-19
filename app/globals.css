@@ -290,6 +290,16 @@
   font-size: 1rem;
 }
 
+/* <br>タグのスタイリング - 改行を適切に表示 */
+.prose br,
+.prose-content br,
+article.prose br {
+  line-height: 1.75;
+  display: block;
+  margin-bottom: 0.5em;
+  content: "";
+}
+
 @media (min-width: 768px) {
   .prose-content p {
     font-size: 1.125rem;

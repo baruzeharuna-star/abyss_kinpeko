@@ -202,7 +202,7 @@ export default function BlogPostPage() {
               <article className="prose prose-lg max-w-none">
                 {post.htmlContent ? (
                   <div
-                    className="text-gray-700 leading-relaxed prose-headings:text-primary-900 prose-headings:font-bold prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline"
+                    className="text-gray-700 leading-relaxed prose-headings:text-primary-900 prose-headings:font-bold prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline [&_br]:block [&_br]:mt-2"
                     dangerouslySetInnerHTML={{ __html: post.htmlContent }}
                   />
                 ) : (
