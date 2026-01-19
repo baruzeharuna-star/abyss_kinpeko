@@ -2,7 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeRaw from "rehype-raw";
+import rehypeStringify from "rehype-stringify";
 import breaks from "remark-breaks";
 
 const postsDirectory = path.join(process.cwd(), "content/blog");
@@ -93,7 +95,12 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
 export async function getPostContentHTML(content: string): Promise<string> {
   try {
-    const processedContent = await remark().use(breaks).use(html).process(content);
+    const processedContent = await remark()
+      .use(breaks)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeStringify)
+      .process(content);
     let htmlContent = processedContent.toString();
     
     // 外部リンク（http://またはhttps://で始まる）にtarget="_blank"とrel="noopener noreferrer"を追加
