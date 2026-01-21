@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">キンペコ</h3>
             <p className="text-gray-300">
-              個人でブリードしている熱帯魚（キンペコ）の販売促進サイト
+              キンペコの魅力をお届けするサイト
             </p>
           </div>
           <div>
@@ -73,7 +73,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-[#1a2338] mt-8 pt-4 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} キンペコ. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Abyss. All rights reserved.</p>
         </div>
       </div>
     </footer>

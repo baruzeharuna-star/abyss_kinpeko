@@ -38,11 +38,20 @@ export const metadata: Metadata = {
     siteName: "キンペコ（L333）ブリード記録",
     title: "キンペコ（L333）ブリード・血統・飼育記録｜個人熱帯魚ブリーダー",
     description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
+    images: [
+      {
+        url: `${siteUrl}/images/logo/logo_side.png`,
+        width: 1536,
+        height: 1024,
+        alt: "キンペコ（L333）ブリード記録",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "キンペコ（L333）ブリード・血統・飼育記録｜個人熱帯魚ブリーダー",
     description: "キンペコ（L333）の血統紹介、飼育環境、繁殖・育成の記録をまとめた個人ブリーダーサイト。委託販売情報も掲載。",
+    images: [`${siteUrl}/images/logo/logo_side.png`],
   },
 };
 
