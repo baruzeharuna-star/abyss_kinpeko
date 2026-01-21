@@ -174,8 +174,76 @@ export default function AboutPage() {
 
       {/* Link Section */}
       <section className="py-16 md:py-24 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <BloodlineLinkButton>繁殖している血統を見る</BloodlineLinkButton>
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+            <span className="text-accent-600">血</span>統紹介
+          </h2>
+          <p className="text-center text-gray-600 mb-10">
+            繁殖しているキンペコの血統をご紹介しています
+          </p>
+          
+          <div className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 rounded-2xl p-8 shadow-xl shadow-primary-900/30">
+            <div className="text-center">
+              <p className="text-white/90 mb-6 text-lg">
+                厳選した血統の詳細情報と、個体の特徴をご覧いただけます
+              </p>
+              <BloodlineLinkButton>繁殖している血統を見る</BloodlineLinkButton>
+            </div>
+          </div>
+        </div>
+        {/* セクション区切りライン */}
+        <div className="max-w-3xl mx-auto mt-16 h-px bg-gradient-to-r from-transparent via-accent-500/30 to-transparent"></div>
+      </section>
+
+      {/* SNS Links Section */}
+      <section className="py-16 md:py-24 px-4 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+            <span className="text-accent-600">S</span>NS
+          </h2>
+          <p className="text-center text-gray-600 mb-10">
+            各種SNSでも情報発信しています
+          </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            <a
+              href="https://www.youtube.com/@aquarium-abyss"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 p-4 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:scale-105 transition-transform shadow-lg shadow-red-500/40"
+            >
+              <span className="text-2xl">▶️</span>
+              <span className="font-bold">YouTube</span>
+            </a>
+            <a
+              href="https://x.com/aquarium621"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 p-4 bg-gradient-to-r from-gray-800 to-black text-white rounded-xl hover:scale-105 transition-transform shadow-lg shadow-gray-900/30"
+            >
+              <span className="text-2xl">𝕏</span>
+              <span className="font-bold">X (Twitter)</span>
+            </a>
+            <a
+              href="https://www.instagram.com/kinpeco_aquarium"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 p-4 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white rounded-xl hover:scale-105 transition-transform shadow-lg shadow-pink-500/40"
+            >
+              <span className="text-2xl">📷</span>
+              <span className="font-bold">Instagram</span>
+            </a>
+          </div>
+
+          <div className="text-center">
+            <a
+              href="/links"
+              className="inline-flex items-center gap-2 px-6 py-3 text-primary-700 hover:text-primary-900 font-medium transition-colors"
+            >
+              すべてのリンクを見る
+              <span className="text-lg">→</span>
+            </a>
+          </div>
         </div>
       </section>
     </div>

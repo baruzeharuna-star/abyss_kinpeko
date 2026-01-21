@@ -10,15 +10,28 @@ interface LinkItem {
   description: string;
   icon: string;
   category: "sns" | "shop" | "other";
+  gradient: string;
+  shadowColor: string;
 }
 
 const links: LinkItem[] = [
   {
+    title: "YouTube",
+    url: "https://www.youtube.com/@aquarium-abyss",
+    description: "キンペコの動画コンテンツを配信しています",
+    icon: "▶️",
+    category: "sns",
+    gradient: "from-red-500 to-red-600",
+    shadowColor: "shadow-red-500/40",
+  },
+  {
     title: "X (Twitter)",
     url: "https://x.com/aquarium621",
     description: "最新情報や日常の様子をツイートしています",
-    icon: "🐦",
+    icon: "𝕏",
     category: "sns",
+    gradient: "from-gray-800 to-black",
+    shadowColor: "shadow-gray-900/30",
   },
   {
     title: "Instagram",
@@ -26,13 +39,8 @@ const links: LinkItem[] = [
     description: "キンペコの写真や動画を投稿しています",
     icon: "📷",
     category: "sns",
-  },
-  {
-    title: "YouTube",
-    url: "https://www.youtube.com/@aquarium-abyss",
-    description: "キンペコの動画コンテンツを配信しています",
-    icon: "▶️",
-    category: "sns",
+    gradient: "from-purple-500 via-pink-500 to-orange-400",
+    shadowColor: "shadow-pink-500/40",
   },
 ];
 
@@ -132,42 +140,35 @@ export default function LinksPage() {
         }`}
       >
         <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {links.map((link, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg p-6 hover:shadow-lg transition-all duration-300 border border-gray-200 group"
+                className="group"
               >
-                {/* カードヘッダー：情報構造を明確化 */}
-                <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+                {/* グラデーションカードボタン */}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-4 p-5 bg-gradient-to-r ${link.gradient} text-white rounded-2xl shadow-lg ${link.shadowColor} hover:scale-105 hover:shadow-xl transition-all duration-300 mb-6`}
+                >
                   <span className="text-3xl">{link.icon}</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors">
-                    {link.title}
-                  </h3>
-                </div>
+                  <span className="text-xl font-bold">{link.title}</span>
+                </a>
                 
-                {/* カード本文 */}
-                <p className="text-gray-700 mb-4 leading-relaxed text-sm">
-                  {link.description}
-                </p>
-                
-                {/* アクションエリア */}
-                <div className="flex flex-col gap-4 pt-4 border-t border-gray-100">
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-5 py-3 sm:px-4 sm:py-2 bg-[#161c30] hover:bg-[#1a2338] text-white font-medium rounded-lg transition-colors text-sm"
-                  >
-                    リンクを開く →
-                  </a>
-                  <div className="flex flex-col items-center gap-2">
+                {/* 説明文とQRコード */}
+                <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                  <p className="text-gray-700 mb-4 leading-relaxed text-sm">
+                    {link.description}
+                  </p>
+                  <div className="flex flex-col items-center gap-2 pt-4 border-t border-gray-100">
                     <p className="text-xs text-gray-500">QRコード</p>
                     <Image
                       src={generateQRCode(link.url)}
                       alt={`${link.title}のQRコード`}
-                      width={128}
-                      height={128}
+                      width={120}
+                      height={120}
                       className="bg-white p-2 rounded-lg border border-gray-200"
                     />
                   </div>
