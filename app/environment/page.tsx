@@ -25,7 +25,7 @@ export default function EnvironmentPage() {
             <span className="text-accent-600 font-semibold">生物</span>にとって、適切な環境は健康と成長の基盤です。
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            水質管理、水温管理、適切な餌の供給などを行ない、キンペコがすこしやかに育つ環境を意識しています。
+            水質管理、水温管理、適切な餌の供給などを行い、キンペコが健やかに育つ環境を意識しています。
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
             固定観念を持たず、日々の観察を通じて、最適な環境条件を追求し続けています。
